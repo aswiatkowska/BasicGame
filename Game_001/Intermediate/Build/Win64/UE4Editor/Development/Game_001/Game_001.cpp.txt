@@ -1,0 +1,2 @@
+C:\Users\dell\Desktop\Game_001\Intermediate\Build\Win64\UE4Editor\Development\Game_001\Definitions.Game_001.h
+C:\Users\dell\Desktop\Game_001\Source\Game_001\Game_001.h
