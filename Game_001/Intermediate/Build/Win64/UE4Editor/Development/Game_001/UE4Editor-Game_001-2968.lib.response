@@ -1,0 +1,16 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UE4Editor-Game_001-2968.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"C:\Users\dell\Desktop\BasicGame\Game_001\Intermediate\Build\Win64\Game_001Editor\Development\Engine\SharedPCH.Engine.ShadowErrors.h.obj"
+"C:\Users\dell\Desktop\BasicGame\Game_001\Intermediate\Build\Win64\UE4Editor\Development\Game_001\Game_001.cpp.obj"
+"C:\Users\dell\Desktop\BasicGame\Game_001\Intermediate\Build\Win64\UE4Editor\Development\Game_001\Game_001GameModeBase.cpp.obj"
+"C:\Users\dell\Desktop\BasicGame\Game_001\Intermediate\Build\Win64\UE4Editor\Development\Game_001\Game_001.init.gen.cpp.obj"
+"C:\Users\dell\Desktop\BasicGame\Game_001\Intermediate\Build\Win64\UE4Editor\Development\Game_001\Game_001GameModeBase.gen.cpp.obj"
+"C:\Users\dell\Desktop\BasicGame\Game_001\Intermediate\Build\Win64\UE4Editor\Development\Game_001\Default.rc2.res"
+/OUT:"C:\Users\dell\Desktop\BasicGame\Game_001\Intermediate\Build\Win64\UE4Editor\Development\Game_001\UE4Editor-Game_001-2968.lib"
+/INCLUDE:IMPLEMENT_MODULE_Game_001

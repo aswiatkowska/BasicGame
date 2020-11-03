@@ -3,7 +3,7 @@
   <ItemGroup>
     <None Include="..\..\Game_001.uproject" />
     <Filter Include="Source">
-      <UniqueIdentifier>{0942C105-8FBA-429E-8FB2-0DB0ABC94012}</UniqueIdentifier>
+      <UniqueIdentifier>{9E67561E-A9F4-4875-8237-3AD1D2D52918}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\Game_001.Target.cs">
       <Filter>Source</Filter>
@@ -12,7 +12,7 @@
       <Filter>Source</Filter>
     </None>
     <Filter Include="Config">
-      <UniqueIdentifier>{F289BE02-5CFF-4E19-A2A6-91FBEDBCFEB8}</UniqueIdentifier>
+      <UniqueIdentifier>{A5F2E365-31E2-42C7-BA04-6A729B0F9425}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Config\DefaultEditor.ini">
       <Filter>Config</Filter>
@@ -24,7 +24,7 @@
       <Filter>Config</Filter>
     </None>
     <Filter Include="Source\Game_001">
-      <UniqueIdentifier>{D18C9F09-7D38-4895-9B70-BDF7694F4AF5}</UniqueIdentifier>
+      <UniqueIdentifier>{D616C61E-087D-4EEA-BBDC-F448E31FAAD2}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\Game_001\Game_001.Build.cs">
       <Filter>Source\Game_001</Filter>

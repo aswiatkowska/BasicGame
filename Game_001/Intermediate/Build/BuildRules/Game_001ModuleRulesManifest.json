@@ -1,8 +1,8 @@
 {
 	"SourceFiles": [
-		"C:\\Users\\dell\\Desktop\\Game_001\\Source\\Game_001\\Game_001.Build.cs",
-		"C:\\Users\\dell\\Desktop\\Game_001\\Source\\Game_001.Target.cs",
-		"C:\\Users\\dell\\Desktop\\Game_001\\Source\\Game_001Editor.Target.cs"
+		"C:\\Users\\dell\\Desktop\\BasicGame\\Game_001\\Source\\Game_001\\Game_001.Build.cs",
+		"C:\\Users\\dell\\Desktop\\BasicGame\\Game_001\\Source\\Game_001.Target.cs",
+		"C:\\Users\\dell\\Desktop\\BasicGame\\Game_001\\Source\\Game_001Editor.Target.cs"
 	],
 	"EngineVersion": "4.25.4"
 }
