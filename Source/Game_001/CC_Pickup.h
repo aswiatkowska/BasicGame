@@ -13,19 +13,17 @@ class GAME_001_API ACC_Pickup : public AActor
 	GENERATED_BODY()
 	
 public:	
-	// Sets default values for this actor's properties
+
 	ACC_Pickup();
 
 protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
 
 	FTimerHandle DeathTimerHandle;
 
 	void DeathTimerComplete();
 
 public:	
-	// Called every frame
+
 	virtual void Tick(float DeltaTime) override;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
@@ -36,8 +34,6 @@ public:
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	float RotationRate;
-
-	void PlayCustomDeath();
 
 	UFUNCTION()
 	void OnOverlap(AActor* OverlappedActor, AActor* OtherActor);

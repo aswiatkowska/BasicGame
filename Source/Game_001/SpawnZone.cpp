@@ -3,35 +3,22 @@
 
 #include "SpawnZone.h"
 
-// Sets default values
 ASpawnZone::ASpawnZone()
-{
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
-
+{	
 	Floor = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("FloorComponent"));
 	SetRootComponent(Floor);
-	
-
 }
 
-// Called when the game starts or when spawned
 void ASpawnZone::BeginPlay()
 {
 	Super::BeginPlay();
 
-	for (int i = 0; i < 4; i++)
+	int NumberOfPickups = FMath::RandRange(4, 8);
+
+	for (int i = 0; i < NumberOfPickups; i++)
 	{
 		SpawnItem(MyPickup);
 	}
-
-}
-
-// Called every frame
-void ASpawnZone::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
 }
 
 void ASpawnZone::SpawnItem(UClass* ItemToSpawn)
@@ -41,6 +28,6 @@ void ASpawnZone::SpawnItem(UClass* ItemToSpawn)
 
 	FVector Location(XCoordinate, YCoordinate, 40.f);
 	
-	GetWorld()->SpawnActor<AActor>(ItemToSpawn, Location, FRotator(0.f));
+	GetWorld()->SpawnActor<AActor>(ItemToSpawn, Location, FRotator::ZeroRotator);
 }
 
