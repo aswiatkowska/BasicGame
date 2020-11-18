@@ -48,5 +48,5 @@ public:
 	int points = 0;
 
 	UFUNCTION()
-	void OnOverlap(AActor* OverlappedActor, AActor* OtherActor);
+	void AddingPoints(AActor* OverlappedActor, AActor* OtherActor);
 };

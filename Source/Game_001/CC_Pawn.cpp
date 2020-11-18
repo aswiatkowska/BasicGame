@@ -24,8 +24,6 @@ ACC_Pawn::ACC_Pawn()
 	Mesh->SetSimulatePhysics(true);
 	MovementForce = 100000;
 
-	OnActorBeginOverlap.AddDynamic(this, &ACC_Pawn::OnOverlap);
-
 	WidgetHUD = nullptr;
 
 }
@@ -55,7 +53,7 @@ void ACC_Pawn::MoveRight(float Value)
 	Mesh->AddForce(ForceToAdd);
 }
 
-void ACC_Pawn::OnOverlap(AActor* OverlappedActor, AActor* OtherActor)
+void ACC_Pawn::AddingPoints(AActor* OverlappedActor, AActor* OtherActor)
 {
 	if (Cast<ACC_Pickup>(OtherActor) != nullptr)
 	{
