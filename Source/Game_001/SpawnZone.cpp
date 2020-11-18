@@ -13,8 +13,6 @@ void ASpawnZone::BeginPlay()
 {
 	Super::BeginPlay();
 
-	int NumberOfPickups = FMath::RandRange(4, 8);
-
 	for (int i = 0; i < NumberOfPickups; i++)
 	{
 		SpawnItem(MyPickup);

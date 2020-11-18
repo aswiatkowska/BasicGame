@@ -27,6 +27,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Zone)
 	TSubclassOf<AActor> MyPickup;
 
+	UPROPERTY(EditAnywhere)
+	int NumberOfPickups = FMath::RandRange(4, 8);
+
 	void SpawnItem(UClass* ItemToSpawn);
 
 };
