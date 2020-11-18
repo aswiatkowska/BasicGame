@@ -2,6 +2,11 @@
 
 
 #include "CC_Pawn.h"
+#include "CC_Pickup.h"
+#include "CC_GameMode.h"
+#include "Blueprint/UserWidget.h"
+#include "Components/TextBlock.h"
+#include "Blueprint/WidgetTree.h"
 
 
 ACC_Pawn::ACC_Pawn()
@@ -19,6 +24,15 @@ ACC_Pawn::ACC_Pawn()
 	Mesh->SetSimulatePhysics(true);
 	MovementForce = 100000;
 
+	OnActorBeginOverlap.AddDynamic(this, &ACC_Pawn::OnOverlap);
+
+	WidgetHUD = nullptr;
+
+}
+
+void ACC_Pawn::BeginPlay()
+{
+	Super::BeginPlay();
 }
 
 void ACC_Pawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -41,3 +55,21 @@ void ACC_Pawn::MoveRight(float Value)
 	Mesh->AddForce(ForceToAdd);
 }
 
+void ACC_Pawn::OnOverlap(AActor* OverlappedActor, AActor* OtherActor)
+{
+	if (Cast<ACC_Pickup>(OtherActor) != nullptr)
+	{
+		points++;
+
+		if (WidgetHUD)
+		{
+			const FName locTextControlName = FName(TEXT("ScoreLabel"));
+			UTextBlock* locTextControl = (UTextBlock*)(WidgetHUD->WidgetTree->FindWidget(locTextControlName));
+
+			if (locTextControl != nullptr)
+			{
+				locTextControl->SetText(FText::FromString(FString::FromInt(this->points)));
+			}
+		}
+	}
+}

@@ -15,8 +15,6 @@ ACC_Pickup::ACC_Pickup()
 	CubeMesh->SetupAttachment(Root);
 	CubeMesh->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
 	RotationRate = 100;
-
-	OnActorBeginOverlap.AddDynamic(this, &ACC_Pickup::OnOverlap);
 }
 
 void ACC_Pickup::Tick(float DeltaTime)

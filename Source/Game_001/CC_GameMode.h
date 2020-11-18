@@ -21,13 +21,4 @@ public:
 	virtual void BeginPlay() override;
 
 	virtual void Tick(float DeltaTime) override;
-
-	void AddingPoints(AActor* OverlappedActor, AActor* OtherActor);
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Score")
-	class UUserWidget* WidgetHUD;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Score")
-	int points;
-	
 };
