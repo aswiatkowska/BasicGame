@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Components/StaticMeshComponent.h"
+#include "CC_GameMode.h"
 #include "CC_Pickup.generated.h"
 
 UCLASS()
@@ -34,6 +35,9 @@ public:
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	float RotationRate;
+
+	UPROPERTY()
+	ACC_GameMode* GameMode;
 
 	UFUNCTION()
 	void OnOverlap(AActor* OverlappedActor, AActor* OtherActor);

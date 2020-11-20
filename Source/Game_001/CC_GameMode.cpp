@@ -6,6 +6,8 @@
 #include "CC_Pickup.h"
 #include "SpawnZone.h"
 #include "Blueprint/UserWidget.h"
+#include "Components/TextBlock.h"
+#include "Blueprint/WidgetTree.h"
 
 
 ACC_GameMode::ACC_GameMode()
@@ -17,6 +19,8 @@ ACC_GameMode::ACC_GameMode()
 	{
 		DefaultPawnClass = (UClass*)Blueprint.Object->GeneratedClass;
 	}
+
+	WidgetHUD = nullptr;
 }
 
 void ACC_GameMode::BeginPlay()
@@ -31,21 +35,31 @@ void ACC_GameMode::BeginPlay()
 		{
 			pWidget->AddToViewport();
 
-			APawn *locPawn = GetWorld()->GetFirstPlayerController()->GetPawn();
-			if (locPawn)
+			AGameModeBase *locGM = GetWorld()->GetAuthGameMode();
+			if (locGM)
 			{
-				ACC_Pawn *locUIPawn = CastChecked<ACC_Pawn>(locPawn);
-				if (locUIPawn)
+				ACC_GameMode *locUIGM = CastChecked<ACC_GameMode>(locGM);
+				if (locUIGM)
 				{
-					locUIPawn->WidgetHUD = pWidget;
+					locUIGM->WidgetHUD = pWidget;
 				}
 			}
 		}
 	}
 }
 
-void ACC_GameMode::Tick(float DeltaTime)
+void ACC_GameMode::AddPoint()
 {
-	Super::Tick(DeltaTime);
+	points++;
 
+	if (WidgetHUD)
+	{
+		const FName locTextControlName = FName(TEXT("ScoreLabel"));
+		UTextBlock* locTextControl = (UTextBlock*)(WidgetHUD->WidgetTree->FindWidget(locTextControlName));
+
+		if (locTextControl != nullptr)
+		{
+			locTextControl->SetText(FText::FromString(FString::FromInt(this->points)));
+		}
+	}
 }

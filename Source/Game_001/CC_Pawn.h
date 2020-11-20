@@ -9,8 +9,6 @@
 #include "Camera/CameraComponent.h"
 #include "CC_Pawn.generated.h"
 
-class UUserWidget;
-
 UCLASS()
 class GAME_001_API ACC_Pawn : public APawn
 {
@@ -19,8 +17,6 @@ class GAME_001_API ACC_Pawn : public APawn
 public:
 	
 	ACC_Pawn();
-
-public:	
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
@@ -41,12 +37,4 @@ public:
 	void MoveUp(float Value);
 	void MoveRight(float Value);
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Score")
-	class UUserWidget* WidgetHUD;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Score")
-	int points = 0;
-
-	UFUNCTION()
-	void AddingPoints(AActor* OverlappedActor, AActor* OtherActor);
 };

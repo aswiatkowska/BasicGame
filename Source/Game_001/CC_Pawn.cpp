@@ -4,10 +4,6 @@
 #include "CC_Pawn.h"
 #include "CC_Pickup.h"
 #include "CC_GameMode.h"
-#include "Blueprint/UserWidget.h"
-#include "Components/TextBlock.h"
-#include "Blueprint/WidgetTree.h"
-
 
 ACC_Pawn::ACC_Pawn()
 {
@@ -23,8 +19,6 @@ ACC_Pawn::ACC_Pawn()
 
 	Mesh->SetSimulatePhysics(true);
 	MovementForce = 100000;
-
-	WidgetHUD = nullptr;
 
 }
 
@@ -51,23 +45,4 @@ void ACC_Pawn::MoveRight(float Value)
 {
 	FVector ForceToAdd = FVector(0, 1, 0) * MovementForce * Value;
 	Mesh->AddForce(ForceToAdd);
-}
-
-void ACC_Pawn::AddingPoints(AActor* OverlappedActor, AActor* OtherActor)
-{
-	if (Cast<ACC_Pickup>(OtherActor) != nullptr)
-	{
-		points++;
-
-		if (WidgetHUD)
-		{
-			const FName locTextControlName = FName(TEXT("ScoreLabel"));
-			UTextBlock* locTextControl = (UTextBlock*)(WidgetHUD->WidgetTree->FindWidget(locTextControlName));
-
-			if (locTextControl != nullptr)
-			{
-				locTextControl->SetText(FText::FromString(FString::FromInt(this->points)));
-			}
-		}
-	}
 }

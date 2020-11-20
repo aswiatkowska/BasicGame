@@ -3,6 +3,7 @@
 
 #include "CC_Pickup.h"
 #include "CC_Pawn.h"
+#include "CC_GameMode.h"
 
 
 ACC_Pickup::ACC_Pickup()
@@ -17,6 +18,7 @@ ACC_Pickup::ACC_Pickup()
 	RotationRate = 100;
 
 	OnActorBeginOverlap.AddDynamic(this, &ACC_Pickup::OnOverlap);
+
 }
 
 void ACC_Pickup::Tick(float DeltaTime)
@@ -35,6 +37,7 @@ void ACC_Pickup::OnOverlap(AActor* OverlappedActor, AActor* OtherActor)
 {
 	if (Cast<ACC_Pawn>(OtherActor) != nullptr)
 	{
+		GameMode->AddPoint();
 		Destroy();
 	}
 }

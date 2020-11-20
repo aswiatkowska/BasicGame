@@ -20,5 +20,11 @@ public:
 
 	virtual void BeginPlay() override;
 
-	virtual void Tick(float DeltaTime) override;
+	void AddPoint();
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Score")
+	class UUserWidget* WidgetHUD;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Score")
+	int points = 0;
 };
