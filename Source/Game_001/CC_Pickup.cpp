@@ -3,7 +3,7 @@
 
 #include "CC_Pickup.h"
 #include "CC_Pawn.h"
-#include "CC_GameMode.h"
+#include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
 
 
 ACC_Pickup::ACC_Pickup()
@@ -19,6 +19,13 @@ ACC_Pickup::ACC_Pickup()
 
 	OnActorBeginOverlap.AddDynamic(this, &ACC_Pickup::OnOverlap);
 
+}
+
+void ACC_Pickup::BeginPlay()
+{
+	Super::BeginPlay();
+
+	GameMode = Cast<ACC_GameMode>(UGameplayStatics::GetGameMode(GetWorld()));
 }
 
 void ACC_Pickup::Tick(float DeltaTime)

@@ -27,6 +27,8 @@ public:
 
 	virtual void Tick(float DeltaTime) override;
 
+	virtual void BeginPlay() override;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	USceneComponent* Root;
 
@@ -37,7 +39,7 @@ public:
 	float RotationRate;
 
 	UPROPERTY()
-	ACC_GameMode* GameMode;
+	ACC_GameMode * GameMode;
 
 	UFUNCTION()
 	void OnOverlap(AActor* OverlappedActor, AActor* OtherActor);
