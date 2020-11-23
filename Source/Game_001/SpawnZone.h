@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "CC_GameMode.h"
 #include "SpawnZone.generated.h"
 
 UCLASS()
@@ -27,8 +28,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Zone)
 	TSubclassOf<AActor> MyPickup;
 
-	UPROPERTY(EditAnywhere)
-	int NumberOfPickups = FMath::RandRange(4, 8);
+	UPROPERTY()
+	ACC_GameMode * GameMode;
 
 	void SpawnItem(UClass* ItemToSpawn);
 

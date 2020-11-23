@@ -8,6 +8,10 @@
 #include "Blueprint/UserWidget.h"
 #include "Components/TextBlock.h"
 #include "Blueprint/WidgetTree.h"
+#include "Kismet/GameplayStatics.h"
+#include "TimerManager.h"
+#include "Engine/World.h"
+#include "GameFramework/PlayerController.h"
 
 
 ACC_GameMode::ACC_GameMode()
@@ -48,6 +52,15 @@ void ACC_GameMode::BeginPlay()
 	}
 }
 
+void ACC_GameMode::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	YouWinMessage();
+
+	RestartGame();
+}
+
 void ACC_GameMode::AddPoint()
 {
 	points++;
@@ -62,4 +75,48 @@ void ACC_GameMode::AddPoint()
 			locTextControl->SetText(FText::FromString(FString::FromInt(this->points)));
 		}
 	}
+}
+
+void ACC_GameMode::YouWinMessage()
+{
+	if (NumberOfPickups == points)
+	{
+		if (WidgetHUD)
+		{
+			const FName locTextControlName = FName(TEXT("YouWinLabel"));
+			UTextBlock* locTextControl = (UTextBlock*)(WidgetHUD->WidgetTree->FindWidget(locTextControlName));
+
+			if (locTextControl != nullptr)
+			{
+				locTextControl->SetOpacity(1);
+			}
+		}
+	}
+}
+
+void ACC_GameMode::RestartGame()
+{
+	if ((NumberOfPickups == points) || IsPawnOffBoard())
+	{	
+		FTimerHandle handle;
+		GetWorld()->GetTimerManager().SetTimer(handle, this, &ACC_GameMode::RestartGame, 3, true);
+
+		UGameplayStatics::OpenLevel(this, "DefaultMap", false);
+	}
+}
+
+bool ACC_GameMode::IsPawnOffBoard()
+{
+	float Z;
+	Z = GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation().Z();
+
+	if (Z < 40.f)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+	
 }

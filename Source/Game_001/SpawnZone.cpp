@@ -2,6 +2,7 @@
 
 
 #include "SpawnZone.h"
+#include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
 
 ASpawnZone::ASpawnZone()
 {	
@@ -13,7 +14,9 @@ void ASpawnZone::BeginPlay()
 {
 	Super::BeginPlay();
 
-	for (int i = 0; i < NumberOfPickups; i++)
+	GameMode = Cast<ACC_GameMode>(UGameplayStatics::GetGameMode(GetWorld()));
+
+	for (int i = 0; i < GameMode->NumberOfPickups; i++)
 	{
 		SpawnItem(MyPickup);
 	}
