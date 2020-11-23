@@ -108,9 +108,9 @@ void ACC_GameMode::RestartGame()
 bool ACC_GameMode::IsPawnOffBoard()
 {
 	float Z;
-	Z = GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation().Z();
+	Z = GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation().Z;
 
-	if (Z < 40.f)
+	if (Z < 10.f)
 	{
 		return true;
 	}
