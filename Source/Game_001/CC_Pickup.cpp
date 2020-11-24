@@ -4,6 +4,7 @@
 #include "CC_Pickup.h"
 #include "CC_Pawn.h"
 #include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
+#include "Sound/SoundCue.h"
 
 
 ACC_Pickup::ACC_Pickup()
@@ -17,6 +18,15 @@ ACC_Pickup::ACC_Pickup()
 	CubeMesh->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
 	RotationRate = 100;
 
+	static ConstructorHelpers::FObjectFinder<USoundCue> PointSoundCueObject(TEXT("SoundCue'/Game/StarterContent/Audio/PointSoundCue.PointSoundCue'"));
+	if (PointSoundCueObject.Succeeded())
+	{
+		PointSoundCue = PointSoundCueObject.Object;
+
+		PointAudioComponent = CreateDefaultSubobject<UAudioComponent>(TEXT("PointAudioComponent"));
+		PointAudioComponent->SetupAttachment(RootComponent);
+	}
+
 	OnActorBeginOverlap.AddDynamic(this, &ACC_Pickup::OnOverlap);
 
 }
@@ -26,6 +36,11 @@ void ACC_Pickup::BeginPlay()
 	Super::BeginPlay();
 
 	GameMode = Cast<ACC_GameMode>(UGameplayStatics::GetGameMode(GetWorld()));
+
+	if (PointAudioComponent && PointSoundCue)
+	{
+		PointAudioComponent->SetSound(PointSoundCue);
+	}
 }
 
 void ACC_Pickup::Tick(float DeltaTime)
@@ -45,6 +60,12 @@ void ACC_Pickup::OnOverlap(AActor* OverlappedActor, AActor* OtherActor)
 	if (Cast<ACC_Pawn>(OtherActor) != nullptr)
 	{
 		GameMode->AddPoint();
+
+		if (PointAudioComponent && PointSoundCue)
+		{
+			PointAudioComponent->Play(0.f);
+		}
+
 		Destroy();
 	}
 }

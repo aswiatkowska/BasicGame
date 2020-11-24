@@ -99,7 +99,7 @@ void ACC_GameMode::RestartGame()
 	if ((NumberOfPickups == points) || IsPawnOffBoard())
 	{	
 		FTimerHandle handle;
-		GetWorld()->GetTimerManager().SetTimer(handle, this, &ACC_GameMode::RestartGame, 3, true);
+		GetWorld()->GetTimerManager().SetTimer(handle, this, &ACC_GameMode::RestartGame, 5, true);
 
 		UGameplayStatics::OpenLevel(this, "DefaultMap", false);
 	}

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Components/StaticMeshComponent.h"
+#include "Components/AudioComponent.h"
 #include "CC_GameMode.h"
 #include "CC_Pickup.generated.h"
 
@@ -28,6 +29,11 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	virtual void BeginPlay() override;
+
+	UAudioComponent* PointAudioComponent;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Audio)
+	class USoundCue* PointSoundCue;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	USceneComponent* Root;
