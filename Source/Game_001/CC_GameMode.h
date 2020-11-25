@@ -7,8 +7,6 @@
 #include "CC_GameMode.generated.h"
 
 
-class UUserWidget;
-
 UCLASS(minimalapi)
 class ACC_GameMode : public AGameModeBase
 {
@@ -27,9 +25,14 @@ public:
 
 	void YouWinMessage();
 
-	void RestartGame();
+	void CheckRestartConditions();
 
 	bool IsPawnOffBoard();
+
+	int getPoints();
+
+	UFUNCTION()
+	void RestartGame();
 
 	UPROPERTY(EditAnywhere)
 	int NumberOfPickups = FMath::RandRange(4, 8);
@@ -37,6 +40,6 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Score")
 	class UUserWidget* WidgetHUD;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Score")
+private:
 	int points = 0;
 };

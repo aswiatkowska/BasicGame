@@ -18,18 +18,11 @@ public:
 
 	ACC_Pickup();
 
-protected:
-
-	FTimerHandle DeathTimerHandle;
-
-	void DeathTimerComplete();
-
-public:	
-
 	virtual void Tick(float DeltaTime) override;
 
 	virtual void BeginPlay() override;
 
+	UPROPERTY(VisibleAnywhere)
 	UAudioComponent* PointAudioComponent;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Audio)

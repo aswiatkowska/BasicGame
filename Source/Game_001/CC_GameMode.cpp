@@ -32,38 +32,28 @@ void ACC_GameMode::BeginPlay()
 	Super::BeginPlay();
 
 	FStringClassReference locWidgetClassRef(TEXT("WidgetBlueprint'/Game/UI.UI_C'"));
-	if (UClass* locWidgetClass = locWidgetClassRef.TryLoadClass<UUserWidget>())
-	{
-		pWidget = CreateWidget<UUserWidget>(this->GetGameInstance(), locWidgetClass);
-		if (pWidget)
-		{
-			pWidget->AddToViewport();
+	UClass* locWidgetClass = locWidgetClassRef.TryLoadClass<UUserWidget>();
 
-			AGameModeBase *locGM = GetWorld()->GetAuthGameMode();
-			if (locGM)
-			{
-				ACC_GameMode *locUIGM = CastChecked<ACC_GameMode>(locGM);
-				if (locUIGM)
-				{
-					locUIGM->WidgetHUD = pWidget;
-				}
-			}
-		}
-	}
+	pWidget = CreateWidget<UUserWidget>(this->GetGameInstance(), locWidgetClass);
+	pWidget->AddToViewport();
+
+	AGameModeBase *locGM = GetWorld()->GetAuthGameMode();
+	ACC_GameMode *locUIGM = CastChecked<ACC_GameMode>(locGM);
+	locUIGM->WidgetHUD = pWidget;
 }
 
 void ACC_GameMode::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	YouWinMessage();
-
-	RestartGame();
+	CheckRestartConditions();
 }
 
 void ACC_GameMode::AddPoint()
 {
 	points++;
+
+	YouWinMessage();
 
 	if (WidgetHUD)
 	{
@@ -94,15 +84,18 @@ void ACC_GameMode::YouWinMessage()
 	}
 }
 
-void ACC_GameMode::RestartGame()
+void ACC_GameMode::CheckRestartConditions()
 {
 	if ((NumberOfPickups == points) || IsPawnOffBoard())
 	{	
 		FTimerHandle handle;
 		GetWorld()->GetTimerManager().SetTimer(handle, this, &ACC_GameMode::RestartGame, 5, true);
-
-		UGameplayStatics::OpenLevel(this, "DefaultMap", false);
 	}
+}
+
+void ACC_GameMode::RestartGame()
+{
+	UGameplayStatics::OpenLevel(this, "DefaultMap", false);
 }
 
 bool ACC_GameMode::IsPawnOffBoard()
@@ -110,13 +103,11 @@ bool ACC_GameMode::IsPawnOffBoard()
 	float Z;
 	Z = GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation().Z;
 
-	if (Z < 10.f)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	return Z < 10.f;
 	
+}
+
+int ACC_GameMode::getPoints()
+{
+	return points;
 }

@@ -36,11 +36,6 @@ void ACC_Pickup::BeginPlay()
 	Super::BeginPlay();
 
 	GameMode = Cast<ACC_GameMode>(UGameplayStatics::GetGameMode(GetWorld()));
-
-	if (PointAudioComponent && PointSoundCue)
-	{
-		PointAudioComponent->SetSound(PointSoundCue);
-	}
 }
 
 void ACC_Pickup::Tick(float DeltaTime)
@@ -48,11 +43,6 @@ void ACC_Pickup::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	AddActorLocalRotation(FRotator(0, RotationRate * DeltaTime, 0));
-}
-
-void ACC_Pickup::DeathTimerComplete()
-{
-	Destroy();
 }
 
 void ACC_Pickup::OnOverlap(AActor* OverlappedActor, AActor* OtherActor)

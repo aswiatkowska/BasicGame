@@ -20,16 +20,13 @@ protected:
 	
 	virtual void BeginPlay() override;
 
-public:	
+public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Zone)
 	UStaticMeshComponent* Floor;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Zone)
 	TSubclassOf<AActor> MyPickup;
-
-	UPROPERTY()
-	ACC_GameMode * GameMode;
 
 	void SpawnItem(UClass* ItemToSpawn);
 

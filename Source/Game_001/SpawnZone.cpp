@@ -14,6 +14,7 @@ void ASpawnZone::BeginPlay()
 {
 	Super::BeginPlay();
 
+	ACC_GameMode * GameMode;
 	GameMode = Cast<ACC_GameMode>(UGameplayStatics::GetGameMode(GetWorld()));
 
 	for (int i = 0; i < GameMode->NumberOfPickups; i++)
