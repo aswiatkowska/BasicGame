@@ -22,6 +22,12 @@ protected:
 
 public:
 
+	UPROPERTY(EditAnywhere)
+	float XCoordinate;
+
+	UPROPERTY(EditAnywhere)
+	float YCoordinate;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Zone)
 	UStaticMeshComponent* Floor;
 

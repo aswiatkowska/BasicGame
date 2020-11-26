@@ -25,8 +25,8 @@ void ASpawnZone::BeginPlay()
 
 void ASpawnZone::SpawnItem(UClass* ItemToSpawn)
 {
-	float XCoordinate = FMath::FRandRange(-450.f, 450.f);
-	float YCoordinate = FMath::FRandRange(-450.f, 450.f);
+	XCoordinate = FMath::FRandRange(-450.f, 450.f);
+	YCoordinate = FMath::FRandRange(-450.f, 450.f);
 
 	FVector Location(XCoordinate, YCoordinate, 40.f);
 	
