@@ -6,35 +6,27 @@
 #include "GameFramework/Actor.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/AudioComponent.h"
-#include "Sound/SoundCue.h"
 #include "CC_GameMode.h"
-#include "CC_Pickup.generated.h"
+#include "CC_BadPickup.generated.h"
 
 UCLASS()
-class GAME_001_API ACC_Pickup : public AActor
+class GAME_001_API ACC_BadPickup : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
-
-	ACC_Pickup();
-
-	virtual void Tick(float DeltaTime) override;
+	ACC_BadPickup();
 
 	virtual void BeginPlay() override;
 
-	UPROPERTY(VisibleAnywhere)
-	UAudioComponent* PointAudioComponent;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Audio)
-	class USoundCue* PointSoundCue;
+	virtual void Tick(float DeltaTime) override;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	USceneComponent* Root;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UStaticMeshComponent* CubeMesh;
-	
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	float RotationRate;
 

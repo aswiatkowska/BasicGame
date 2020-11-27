@@ -4,7 +4,6 @@
 #include "CC_Pickup.h"
 #include "CC_Pawn.h"
 #include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
-#include "Sound/SoundCue.h"
 
 
 ACC_Pickup::ACC_Pickup()
@@ -25,6 +24,8 @@ ACC_Pickup::ACC_Pickup()
 
 		PointAudioComponent = CreateDefaultSubobject<UAudioComponent>(TEXT("PointAudioComponent"));
 		PointAudioComponent->SetupAttachment(RootComponent);
+
+		PointAudioComponent->SetSound(PointSoundCue);
 	}
 
 	OnActorBeginOverlap.AddDynamic(this, &ACC_Pickup::OnOverlap);

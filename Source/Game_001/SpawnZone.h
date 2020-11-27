@@ -34,6 +34,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Zone)
 	TSubclassOf<AActor> MyPickup;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Zone)
+	TSubclassOf<AActor> MyBadPickup;
+
 	void SpawnItem(UClass* ItemToSpawn);
 
 };

@@ -20,6 +20,8 @@ void ASpawnZone::BeginPlay()
 	for (int i = 0; i < GameMode->NumberOfPickups; i++)
 	{
 		SpawnItem(MyPickup);
+
+		SpawnItem(MyBadPickup);
 	}
 }
 
