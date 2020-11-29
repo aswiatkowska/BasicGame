@@ -24,7 +24,6 @@ void ACC_BadPickup::BeginPlay()
 	Super::BeginPlay();
 
 	GameMode = Cast<ACC_GameMode>(UGameplayStatics::GetGameMode(GetWorld()));
-	
 }
 
 void ACC_BadPickup::Tick(float DeltaTime)

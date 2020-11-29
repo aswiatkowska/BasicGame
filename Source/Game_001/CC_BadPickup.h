@@ -33,6 +33,7 @@ public:
 	UPROPERTY()
 	ACC_GameMode * GameMode;
 
+private:
 	UFUNCTION()
 	void OnOverlap(AActor* OverlappedActor, AActor* OtherActor);
 

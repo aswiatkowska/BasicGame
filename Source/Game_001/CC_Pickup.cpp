@@ -17,19 +17,12 @@ ACC_Pickup::ACC_Pickup()
 	CubeMesh->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
 	RotationRate = 100;
 
-	static ConstructorHelpers::FObjectFinder<USoundCue> PointSoundCueObject(TEXT("SoundCue'/Game/StarterContent/Audio/PointSoundCue.PointSoundCue'"));
-	if (PointSoundCueObject.Succeeded())
-	{
-		PointSoundCue = PointSoundCueObject.Object;
-
-		PointAudioComponent = CreateDefaultSubobject<UAudioComponent>(TEXT("PointAudioComponent"));
-		PointAudioComponent->SetupAttachment(RootComponent);
-
-		PointAudioComponent->SetSound(PointSoundCue);
-	}
-
 	OnActorBeginOverlap.AddDynamic(this, &ACC_Pickup::OnOverlap);
 
+	PointAudioComponent = CreateDefaultSubobject<UAudioComponent>(TEXT("PointAudioComponent"));
+	PointAudioComponent->SetupAttachment(RootComponent);
+	PointAudioComponent->SetSound(PointSoundCue);
+	PointAudioComponent->bAutoActivate = false;
 }
 
 void ACC_Pickup::BeginPlay()
@@ -52,11 +45,16 @@ void ACC_Pickup::OnOverlap(AActor* OverlappedActor, AActor* OtherActor)
 	{
 		GameMode->AddPoint();
 
-		if (PointAudioComponent && PointSoundCue)
-		{
-			PointAudioComponent->Play(0.f);
-		}
+		SetActorHiddenInGame(true);
+		CubeMesh->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
+		PointAudioComponent->Play(0.f);
 
-		Destroy();
+		FTimerHandle handle;
+		GetWorld()->GetTimerManager().SetTimer(handle, this, &ACC_Pickup::DestroyPickup, 1, true);
 	}
+}
+
+void ACC_Pickup::DestroyPickup()
+{
+	Destroy();
 }

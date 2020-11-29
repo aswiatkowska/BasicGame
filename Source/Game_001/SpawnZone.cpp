@@ -20,18 +20,43 @@ void ASpawnZone::BeginPlay()
 	for (int i = 0; i < GameMode->NumberOfPickups; i++)
 	{
 		SpawnItem(MyPickup);
+	}
 
+	for (int i = 0; i < GameMode->NumberOfBadPickups; i++)
+	{
 		SpawnItem(MyBadPickup);
 	}
 }
 
 void ASpawnZone::SpawnItem(UClass* ItemToSpawn)
 {
-	XCoordinate = FMath::FRandRange(-450.f, 450.f);
-	YCoordinate = FMath::FRandRange(-450.f, 450.f);
+	XCoordinate1 = FMath::FRandRange(min1, max1);
+	XCoordinate2 = FMath::FRandRange(min2, max2);
+	YCoordinate1 = FMath::FRandRange(min1, max1);
+	YCoordinate2 = FMath::FRandRange(min2, max2);
 
-	FVector Location(XCoordinate, YCoordinate, 40.f);
+	FVector Location1(XCoordinate1, YCoordinate1, 40.f);
+	FVector Location2(XCoordinate2, YCoordinate2, 40.f);
+	FVector Location3(XCoordinate1, YCoordinate2, 40.f);
+	FVector Location4(XCoordinate2, YCoordinate1, 40.f);
+
+	randomLoc = FMath::RandRange(1, 4);
 	
-	GetWorld()->SpawnActor<AActor>(ItemToSpawn, Location, FRotator::ZeroRotator);
+	if (randomLoc == 1)
+	{
+		GetWorld()->SpawnActor<AActor>(ItemToSpawn, Location1, FRotator::ZeroRotator);
+	}
+	else if (randomLoc == 2)
+	{
+		GetWorld()->SpawnActor<AActor>(ItemToSpawn, Location2, FRotator::ZeroRotator);
+	}
+	else if (randomLoc == 3)
+	{
+		GetWorld()->SpawnActor<AActor>(ItemToSpawn, Location3, FRotator::ZeroRotator);
+	}
+	else
+	{
+		GetWorld()->SpawnActor<AActor>(ItemToSpawn, Location4, FRotator::ZeroRotator);
+	}
 }
 

@@ -23,25 +23,29 @@ public:
 
 	virtual void BeginPlay() override;
 
-	UPROPERTY(VisibleAnywhere)
-	UAudioComponent* PointAudioComponent;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Audio)
-	class USoundCue* PointSoundCue;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	float RotationRate;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	USceneComponent* Root;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UStaticMeshComponent* CubeMesh;
-	
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-	float RotationRate;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UAudioComponent* PointAudioComponent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Audio)
+	class USoundCue* PointSoundCue;
 
 	UPROPERTY()
 	ACC_GameMode * GameMode;
 
+private:
+
 	UFUNCTION()
 	void OnOverlap(AActor* OverlappedActor, AActor* OtherActor);
 
+	UFUNCTION()
+	void DestroyPickup();
 };

@@ -18,12 +18,6 @@ ACC_GameMode::ACC_GameMode()
 {
 	PrimaryActorTick.bCanEverTick = true;
 
-	static ConstructorHelpers::FObjectFinder<UBlueprint> Blueprint(TEXT("Blueprint'/Game/MyPawn.MyPawn'"));
-	if (Blueprint.Object)
-	{
-		DefaultPawnClass = (UClass*)Blueprint.Object->GeneratedClass;
-	}
-
 	WidgetHUD = nullptr;
 }
 

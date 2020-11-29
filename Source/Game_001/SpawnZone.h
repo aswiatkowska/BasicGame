@@ -13,20 +13,7 @@ class GAME_001_API ASpawnZone : public AActor
 	GENERATED_BODY()
 	
 public:	
-	
 	ASpawnZone();
-
-protected:
-	
-	virtual void BeginPlay() override;
-
-public:
-
-	UPROPERTY(EditAnywhere)
-	float XCoordinate;
-
-	UPROPERTY(EditAnywhere)
-	float YCoordinate;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Zone)
 	UStaticMeshComponent* Floor;
@@ -37,6 +24,31 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Zone)
 	TSubclassOf<AActor> MyBadPickup;
 
+	UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = Range)
+	float min1 = -450;
+
+	UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = Range)
+	float max1 = -50;
+
+	UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = Range)
+	float min2 = 50;
+
+	UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = Range)
+	float max2 = 450;
+
+protected:
+	virtual void BeginPlay() override;
+
+private:
 	void SpawnItem(UClass* ItemToSpawn);
 
+	float XCoordinate1;
+
+	float XCoordinate2;
+
+	float YCoordinate1;
+
+	float YCoordinate2;
+
+	int randomLoc;
 };

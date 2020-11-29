@@ -15,31 +15,35 @@ class ACC_GameMode : public AGameModeBase
 public:
 	ACC_GameMode();
 
-	class UUserWidget* pWidget;
-
 	virtual void BeginPlay() override;
 
 	virtual void Tick(float DeltaTime) override;
 
+	class UUserWidget* pWidget;
+
 	void AddPoint();
 
+	int getPoints();
+
+private:
 	void YouWinMessage();
 
 	void CheckRestartConditions();
 
 	bool IsPawnOffBoard();
 
-	int getPoints();
+	int points = 0;
 
+public:
 	UFUNCTION()
 	void RestartGame();
 
 	UPROPERTY(EditAnywhere)
 	int NumberOfPickups = FMath::RandRange(4, 8);
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Score")
-	class UUserWidget* WidgetHUD;
+	UPROPERTY(EditAnywhere)
+	int NumberOfBadPickups = FMath::RandRange(2, 6);
 
-private:
-	int points = 0;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Widget")
+	class UUserWidget* WidgetHUD;
 };

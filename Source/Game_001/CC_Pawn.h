@@ -15,7 +15,6 @@ class GAME_001_API ACC_Pawn : public APawn
 	GENERATED_BODY()
 
 public:
-	
 	ACC_Pawn();
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
@@ -34,7 +33,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float MovementForce;
 
+private:
 	void MoveUp(float Value);
-	void MoveRight(float Value);
 
+	void MoveRight(float Value);
 };
