@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Components/StaticMeshComponent.h"
+#include "CC_GameMode.h"
 #include "ParentPickup.generated.h"
 
 UCLASS()
@@ -16,7 +18,23 @@ public:
 
 	virtual void Tick(float DeltaTime) override;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	USceneComponent* Root;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UStaticMeshComponent* CubeMesh;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	float RotationRate;
+
 protected:
 	virtual void BeginPlay() override;
+
+	ACC_GameMode * GameMode;
+
+	UFUNCTION()
+	virtual void OnOverlap(AActor* OverlappedActor, AActor* OtherActor);
+
+	virtual void DoOverlapActions();
 
 };

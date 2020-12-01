@@ -17,23 +17,14 @@
 ACC_GameMode::ACC_GameMode()
 {
 	PrimaryActorTick.bCanEverTick = true;
-
-	WidgetHUD = nullptr;
 }
 
 void ACC_GameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
-	FStringClassReference locWidgetClassRef(TEXT("WidgetBlueprint'/Game/UI.UI_C'"));
-	UClass* locWidgetClass = locWidgetClassRef.TryLoadClass<UUserWidget>();
-
-	pWidget = CreateWidget<UUserWidget>(this->GetGameInstance(), locWidgetClass);
+	pWidget = CreateWidget<UUserWidget>(GetGameInstance(), WidgetHUD);
 	pWidget->AddToViewport();
-
-	AGameModeBase *locGM = GetWorld()->GetAuthGameMode();
-	ACC_GameMode *locUIGM = CastChecked<ACC_GameMode>(locGM);
-	locUIGM->WidgetHUD = pWidget;
 }
 
 void ACC_GameMode::Tick(float DeltaTime)
@@ -49,10 +40,10 @@ void ACC_GameMode::AddPoint()
 
 	YouWinMessage();
 
-	if (WidgetHUD)
+	if (pWidget)
 	{
 		const FName locTextControlName = FName(TEXT("ScoreLabel"));
-		UTextBlock* locTextControl = (UTextBlock*)(WidgetHUD->WidgetTree->FindWidget(locTextControlName));
+		UTextBlock* locTextControl = (UTextBlock*)(pWidget->WidgetTree->FindWidget(locTextControlName));
 
 		if (locTextControl != nullptr)
 		{
@@ -65,10 +56,10 @@ void ACC_GameMode::YouWinMessage()
 {
 	if (NumberOfPickups == points)
 	{
-		if (WidgetHUD)
+		if (pWidget)
 		{
 			const FName locTextControlName = FName(TEXT("YouWinLabel"));
-			UTextBlock* locTextControl = (UTextBlock*)(WidgetHUD->WidgetTree->FindWidget(locTextControlName));
+			UTextBlock* locTextControl = (UTextBlock*)(pWidget->WidgetTree->FindWidget(locTextControlName));
 
 			if (locTextControl != nullptr)
 			{

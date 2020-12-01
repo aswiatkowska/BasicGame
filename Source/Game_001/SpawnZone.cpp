@@ -35,28 +35,27 @@ void ASpawnZone::SpawnItem(UClass* ItemToSpawn)
 	YCoordinate1 = FMath::FRandRange(min1, max1);
 	YCoordinate2 = FMath::FRandRange(min2, max2);
 
-	FVector Location1(XCoordinate1, YCoordinate1, 40.f);
-	FVector Location2(XCoordinate2, YCoordinate2, 40.f);
-	FVector Location3(XCoordinate1, YCoordinate2, 40.f);
-	FVector Location4(XCoordinate2, YCoordinate1, 40.f);
+	FVector Location;
 
 	randomLoc = FMath::RandRange(1, 4);
 	
 	if (randomLoc == 1)
 	{
-		GetWorld()->SpawnActor<AActor>(ItemToSpawn, Location1, FRotator::ZeroRotator);
+		Location = FVector(XCoordinate1, YCoordinate1, 40.f);
 	}
 	else if (randomLoc == 2)
 	{
-		GetWorld()->SpawnActor<AActor>(ItemToSpawn, Location2, FRotator::ZeroRotator);
+		Location = FVector(XCoordinate2, YCoordinate2, 40.f);
 	}
 	else if (randomLoc == 3)
 	{
-		GetWorld()->SpawnActor<AActor>(ItemToSpawn, Location3, FRotator::ZeroRotator);
+		Location = FVector(XCoordinate1, YCoordinate2, 40.f);
 	}
 	else
 	{
-		GetWorld()->SpawnActor<AActor>(ItemToSpawn, Location4, FRotator::ZeroRotator);
+		Location = FVector(XCoordinate2, YCoordinate1, 40.f);
 	}
+
+	GetWorld()->SpawnActor<AActor>(ItemToSpawn, Location, FRotator::ZeroRotator);
 }
 

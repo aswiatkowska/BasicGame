@@ -19,8 +19,6 @@ public:
 
 	virtual void Tick(float DeltaTime) override;
 
-	class UUserWidget* pWidget;
-
 	void AddPoint();
 
 	int getPoints();
@@ -34,6 +32,8 @@ private:
 
 	int points = 0;
 
+	UUserWidget* pWidget = nullptr;
+
 public:
 	UFUNCTION()
 	void RestartGame();
@@ -45,5 +45,5 @@ public:
 	int NumberOfBadPickups = FMath::RandRange(2, 6);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Widget")
-	class UUserWidget* WidgetHUD;
+	TSubclassOf<UUserWidget> WidgetHUD;
 };
