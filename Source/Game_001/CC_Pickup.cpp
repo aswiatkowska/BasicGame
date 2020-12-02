@@ -13,16 +13,6 @@ ACC_Pickup::ACC_Pickup():Super()
 	PointAudioComponent->bAutoActivate = false;
 }
 
-void ACC_Pickup::BeginPlay()
-{
-	Super::BeginPlay();
-}
-
-void ACC_Pickup::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-}
-
 void ACC_Pickup::DoOverlapActions()
 {
 	GameMode->AddPoint();

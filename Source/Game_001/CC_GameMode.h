@@ -21,6 +21,8 @@ public:
 
 	void AddPoint();
 
+	void SubtractLifes();
+
 	int getPoints();
 
 private:
@@ -43,6 +45,9 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	int NumberOfBadPickups = FMath::RandRange(2, 6);
+
+	UPROPERTY(EditAnywhere)
+	int NumberOfLifes = 3;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Widget")
 	TSubclassOf<UUserWidget> WidgetHUD;

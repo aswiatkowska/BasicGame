@@ -10,14 +10,7 @@
 UCLASS()
 class GAME_001_API ACC_BadPickup : public AParentPickup
 {
-	GENERATED_BODY()
-	
-public:	
-	ACC_BadPickup();
-
-	virtual void BeginPlay() override;
-
-	virtual void Tick(float DeltaTime) override;
+	GENERATED_BODY()	
 
 private:
 	virtual void DoOverlapActions() override;

@@ -3,26 +3,9 @@
 
 #include "CC_BadPickup.h"
 
-ACC_BadPickup::ACC_BadPickup():Super()
-{
-	
-}
-
-void ACC_BadPickup::BeginPlay()
-{
-	Super::BeginPlay();
-
-}
-
-void ACC_BadPickup::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-}
-
 void ACC_BadPickup::DoOverlapActions()
 {
-	Destroy();
+	GameMode->SubtractLifes();
 
-	GameMode->RestartGame();
+	Destroy();
 }

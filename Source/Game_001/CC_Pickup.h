@@ -17,10 +17,6 @@ class GAME_001_API ACC_Pickup : public AParentPickup
 public:	
 	ACC_Pickup();
 
-	virtual void Tick(float DeltaTime) override;
-
-	virtual void BeginPlay() override;
-
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UAudioComponent* PointAudioComponent;
 

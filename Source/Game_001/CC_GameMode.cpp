@@ -52,6 +52,11 @@ void ACC_GameMode::AddPoint()
 	}
 }
 
+void ACC_GameMode::SubtractLifes()
+{
+	NumberOfLifes = NumberOfLifes - 1;
+}
+
 void ACC_GameMode::YouWinMessage()
 {
 	if (NumberOfPickups == points)
@@ -66,13 +71,38 @@ void ACC_GameMode::YouWinMessage()
 				locTextControl->SetOpacity(1);
 			}
 		}
+
+		FTimerHandle handle;
+		GetWorld()->GetTimerManager().SetTimer(handle, this, &ACC_GameMode::RestartGame, 2, true);
 	}
 }
 
 void ACC_GameMode::CheckRestartConditions()
-{
-	if ((NumberOfPickups == points) || IsPawnOffBoard())
-	{	
+{	
+	if (pWidget)
+	{
+		const FName locTextControlName = FName(TEXT("LifesLabel"));
+			UTextBlock* locTextControl = (UTextBlock*)(pWidget->WidgetTree->FindWidget(locTextControlName));
+
+		if (locTextControl != nullptr)
+		{
+			locTextControl->SetText(FText::FromString(FString::FromInt(this->NumberOfLifes)));
+		}
+	}
+
+	if (NumberOfLifes == 0 || IsPawnOffBoard())
+	{
+		if (pWidget)
+		{
+			const FName locTextControlName = FName(TEXT("GameOverLabel"));
+			UTextBlock* locTextControl = (UTextBlock*)(pWidget->WidgetTree->FindWidget(locTextControlName));
+
+				if (locTextControl != nullptr)
+				{
+					locTextControl->SetOpacity(1);
+				}
+		}
+
 		FTimerHandle handle;
 		GetWorld()->GetTimerManager().SetTimer(handle, this, &ACC_GameMode::RestartGame, 2, true);
 	}
@@ -88,7 +118,7 @@ bool ACC_GameMode::IsPawnOffBoard()
 	float Z;
 	Z = GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation().Z;
 
-	return Z < 10.f;
+	return Z < 0.f;
 	
 }
 
