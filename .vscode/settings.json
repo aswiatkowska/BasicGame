@@ -1,0 +1,9 @@
+{
+	"files.exclude": {
+		"/home/aswiatkowska/Desktop/BasicGame/.git": true,
+		"/home/aswiatkowska/Desktop/BasicGame/.vscode": true,
+		"/home/aswiatkowska/Desktop/BasicGame/Content": true,
+		"/home/aswiatkowska/Desktop/BasicGame/Intermediate": true,
+		"/home/aswiatkowska/Desktop/BasicGame/Saved": true
+	}
+}

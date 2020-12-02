@@ -44,7 +44,7 @@ public:
 	int NumberOfPickups = FMath::RandRange(4, 8);
 
 	UPROPERTY(EditAnywhere)
-	int NumberOfBadPickups = FMath::RandRange(2, 6);
+	int NumberOfBadPickups = FMath::RandRange(3, 6);
 
 	UPROPERTY(EditAnywhere)
 	int NumberOfLifes = 3;
