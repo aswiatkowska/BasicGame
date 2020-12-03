@@ -23,7 +23,9 @@ public:
 
 	void SubtractLifes();
 
-	int getPoints();
+	int GetPoints();
+
+	bool CheckWinConditions();
 
 private:
 	void YouWinMessage();

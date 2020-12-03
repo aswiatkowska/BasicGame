@@ -19,7 +19,15 @@ public:
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	virtual void BeginPlay() override;
+	void ChangeColor();
+
+	void ChangeColorBack();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UMaterial * RedMaterial;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UMaterial * DefaultMaterial;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UStaticMeshComponent* Mesh;
@@ -31,7 +39,7 @@ public:
 	UCameraComponent* Camera;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float MovementForce;
+	float MovementForce = 100000;
 
 private:
 	void MoveUp(float Value);

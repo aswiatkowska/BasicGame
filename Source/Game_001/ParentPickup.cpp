@@ -39,6 +39,7 @@ void AParentPickup::OnOverlap(AActor* OverlappedActor, AActor* OtherActor)
 	if (Cast<ACC_Pawn>(OtherActor) != nullptr)
 	{
 		DoOverlapActions();
+		
 	}
 }
 
@@ -46,5 +47,4 @@ void AParentPickup::DoOverlapActions()
 {
 
 }
-
 

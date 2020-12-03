@@ -4,6 +4,7 @@
 #include "CC_Pawn.h"
 #include "CC_Pickup.h"
 #include "CC_GameMode.h"
+#include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
 
 ACC_Pawn::ACC_Pawn()
 {
@@ -18,13 +19,19 @@ ACC_Pawn::ACC_Pawn()
 	Camera->SetupAttachment(SpringArm);
 
 	Mesh->SetSimulatePhysics(true);
-	MovementForce = 100000;
-
 }
 
-void ACC_Pawn::BeginPlay()
+void ACC_Pawn::ChangeColor()
 {
-	Super::BeginPlay();
+	Mesh->SetMaterial(0, RedMaterial);
+
+	FTimerHandle handle;
+	GetWorld()->GetTimerManager().SetTimer(handle, this, &ACC_Pawn::ChangeColorBack, 0.5, true);
+}
+
+void ACC_Pawn::ChangeColorBack()
+{
+	Mesh->SetMaterial(0, DefaultMaterial);
 }
 
 void ACC_Pawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)

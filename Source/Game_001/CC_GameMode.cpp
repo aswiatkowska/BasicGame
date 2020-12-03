@@ -59,7 +59,7 @@ void ACC_GameMode::SubtractLifes()
 
 void ACC_GameMode::YouWinMessage()
 {
-	if (NumberOfPickups == points)
+	if (CheckWinConditions())
 	{
 		if (pWidget)
 		{
@@ -108,6 +108,18 @@ void ACC_GameMode::CheckRestartConditions()
 	}
 }
 
+bool ACC_GameMode::CheckWinConditions()
+{
+	if (NumberOfPickups == points)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 void ACC_GameMode::RestartGame()
 {
 	UGameplayStatics::OpenLevel(this, "DefaultMap", false);
@@ -122,7 +134,7 @@ bool ACC_GameMode::IsPawnOffBoard()
 	
 }
 
-int ACC_GameMode::getPoints()
+int ACC_GameMode::GetPoints()
 {
 	return points;
 }

@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "ParentPickup.h"
 #include "CC_GameMode.h"
 #include "SpawnZone.generated.h"
 
@@ -19,10 +20,10 @@ public:
 	UStaticMeshComponent* Floor;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Zone)
-	TSubclassOf<AActor> MyPickup;
+	TSubclassOf<AParentPickup> MyPickupClass;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Zone)
-	TSubclassOf<AActor> MyBadPickup;
+	TSubclassOf<AParentPickup> MyBadPickupClass;
 
 	UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = Range)
 	float min1 = -450;
@@ -36,11 +37,12 @@ public:
 	UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = Range)
 	float max2 = 450;
 
-protected:
+private:
 	virtual void BeginPlay() override;
 
-private:
 	void SpawnItem(UClass* ItemToSpawn);
+
+	ACC_GameMode * GameMode;
 
 	float XCoordinate1;
 
