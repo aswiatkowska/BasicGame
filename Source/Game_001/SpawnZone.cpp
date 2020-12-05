@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 
 #include "SpawnZone.h"
 #include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
@@ -57,4 +55,3 @@ void ASpawnZone::SpawnItem(UClass* ItemToSpawn)
 
 	GetWorld()->SpawnActor<AActor>(ItemToSpawn, Location, FRotator::ZeroRotator);
 }
-

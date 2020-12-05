@@ -1,5 +1,6 @@
-# Visual Studio 2015 user specific files
-.vs/
+# Visual Studio Code user specific files
+.vscode/
+.kdev4/
 
 # Compiled Object files
 *.slo
@@ -50,6 +51,13 @@ Binaries/*
 Plugins/*/Binaries/*
 
 # Builds
+*.pri
+*.txt
+*.workspace
+*.pro
+*.kdev4
+*.code-workspace
+*.x-makefile
 Build/*
 
 # Whitelist PakBlacklist-<BuildConfiguration>.txt files

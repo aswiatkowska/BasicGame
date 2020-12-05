@@ -1,11 +1,9 @@
-// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
 #include "CC_GameMode.generated.h"
-
 
 UCLASS(minimalapi)
 class ACC_GameMode : public AGameModeBase
@@ -21,24 +19,12 @@ public:
 
 	void AddPoint();
 
-	void SubtractLifes();
-
 	int GetPoints();
 
 	bool CheckWinConditions();
 
-private:
-	void YouWinMessage();
+	void SubtractLifes();
 
-	void CheckRestartConditions();
-
-	bool IsPawnOffBoard();
-
-	int points = 0;
-
-	UUserWidget* pWidget = nullptr;
-
-public:
 	UFUNCTION()
 	void RestartGame();
 
@@ -53,4 +39,15 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Widget")
 	TSubclassOf<UUserWidget> WidgetHUD;
+
+private:
+	void YouWinMessage();
+
+	void CheckRestartConditions();
+
+	bool IsPawnOffBoard();
+
+	int points = 0;
+
+	UUserWidget* pWidget = nullptr;
 };

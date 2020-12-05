@@ -1,9 +1,6 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 
 #include "CC_Pickup.h"
 #include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
-
 
 ACC_Pickup::ACC_Pickup():Super()
 {

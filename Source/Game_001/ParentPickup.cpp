@@ -1,4 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
 
 #include "ParentPickup.h"
 #include "CC_Pawn.h"
@@ -16,7 +15,6 @@ AParentPickup::AParentPickup()
 	RotationRate = 100;
 
 	OnActorBeginOverlap.AddDynamic(this, &AParentPickup::OnOverlap);
-
 }
 
 void AParentPickup::BeginPlay()
@@ -24,7 +22,6 @@ void AParentPickup::BeginPlay()
 	Super::BeginPlay();
 
 	GameMode = Cast<ACC_GameMode>(UGameplayStatics::GetGameMode(GetWorld()));
-	
 }
 
 void AParentPickup::Tick(float DeltaTime)
@@ -39,7 +36,6 @@ void AParentPickup::OnOverlap(AActor* OverlappedActor, AActor* OtherActor)
 	if (Cast<ACC_Pawn>(OtherActor) != nullptr)
 	{
 		DoOverlapActions();
-		
 	}
 }
 
@@ -47,4 +43,3 @@ void AParentPickup::DoOverlapActions()
 {
 
 }
-

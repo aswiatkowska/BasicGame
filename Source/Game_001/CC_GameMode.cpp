@@ -1,10 +1,5 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 
 #include "CC_GameMode.h"
-#include "CC_Pawn.h"
-#include "CC_Pickup.h"
-#include "SpawnZone.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/TextBlock.h"
 #include "Blueprint/WidgetTree.h"
@@ -52,9 +47,21 @@ void ACC_GameMode::AddPoint()
 	}
 }
 
-void ACC_GameMode::SubtractLifes()
+int ACC_GameMode::GetPoints()
 {
-	NumberOfLifes = NumberOfLifes - 1;
+	return points;
+}
+
+bool ACC_GameMode::CheckWinConditions()
+{
+	if (NumberOfPickups == points)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }
 
 void ACC_GameMode::YouWinMessage()
@@ -108,23 +115,6 @@ void ACC_GameMode::CheckRestartConditions()
 	}
 }
 
-bool ACC_GameMode::CheckWinConditions()
-{
-	if (NumberOfPickups == points)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
-
-void ACC_GameMode::RestartGame()
-{
-	UGameplayStatics::OpenLevel(this, "DefaultMap", false);
-}
-
 bool ACC_GameMode::IsPawnOffBoard()
 {
 	float Z;
@@ -134,7 +124,12 @@ bool ACC_GameMode::IsPawnOffBoard()
 	
 }
 
-int ACC_GameMode::GetPoints()
+void ACC_GameMode::SubtractLifes()
 {
-	return points;
+	NumberOfLifes = NumberOfLifes - 1;
+}
+
+void ACC_GameMode::RestartGame()
+{
+	UGameplayStatics::OpenLevel(this, "DefaultMap", false);
 }

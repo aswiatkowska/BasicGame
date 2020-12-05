@@ -1,9 +1,5 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 
 #include "CC_Pawn.h"
-#include "CC_Pickup.h"
-#include "CC_GameMode.h"
 #include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
 
 ACC_Pawn::ACC_Pawn()
@@ -19,6 +15,29 @@ ACC_Pawn::ACC_Pawn()
 	Camera->SetupAttachment(SpringArm);
 
 	Mesh->SetSimulatePhysics(true);
+}
+
+void ACC_Pawn::BeginPlay()
+{
+	Super::BeginPlay();
+
+	GameMode = Cast<ACC_GameMode>(UGameplayStatics::GetGameMode(GetWorld()));
+}
+
+void ACC_Pawn::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	GameOverAnimation();
+}
+
+void ACC_Pawn::GameOverAnimation()
+{
+	if (GameMode->NumberOfLifes == 0)
+	{
+		SetActorHiddenInGame(true);
+		Mesh->SetSimulatePhysics(false);
+	}
 }
 
 void ACC_Pawn::ChangeColor()

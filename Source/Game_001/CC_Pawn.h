@@ -1,4 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -7,6 +6,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
+#include "CC_GameMode.h"
 #include "CC_Pawn.generated.h"
 
 UCLASS()
@@ -17,11 +17,13 @@ class GAME_001_API ACC_Pawn : public APawn
 public:
 	ACC_Pawn();
 
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	virtual void Tick(float DeltaTime) override;
 
 	void ChangeColor();
 
 	void ChangeColorBack();
+
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UMaterial * RedMaterial;
@@ -42,7 +44,13 @@ public:
 	float MovementForce = 100000;
 
 private:
+	virtual void BeginPlay() override;
+
+	void GameOverAnimation();
+
 	void MoveUp(float Value);
 
 	void MoveRight(float Value);
+
+	ACC_GameMode * GameMode;
 };
