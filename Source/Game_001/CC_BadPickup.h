@@ -15,9 +15,10 @@ class GAME_001_API ACC_BadPickup : public AParentPickup
 private:
 	virtual void BeginPlay() override;
 
-	virtual void Tick(float DeltaTime) override;
-
 	virtual void DoOverlapActions() override;
+
+	UFUNCTION()
+	void DisableCollision();
 
 	ACC_Pawn * Pawn;
 };

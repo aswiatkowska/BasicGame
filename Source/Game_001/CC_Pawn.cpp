@@ -9,10 +9,12 @@ ACC_Pawn::ACC_Pawn()
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>("Mesh");
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>("SpringArm");
 	Camera = CreateDefaultSubobject<UCameraComponent>("Camera");
+	GameOverParticleComponent = CreateDefaultSubobject<UParticleSystemComponent>("GameOverParticle");
 
 	RootComponent = Mesh;
 	SpringArm->SetupAttachment(Mesh);
 	Camera->SetupAttachment(SpringArm);
+	GameOverParticleComponent->SetupAttachment(Mesh);
 
 	Mesh->SetSimulatePhysics(true);
 }
@@ -22,22 +24,14 @@ void ACC_Pawn::BeginPlay()
 	Super::BeginPlay();
 
 	GameMode = Cast<ACC_GameMode>(UGameplayStatics::GetGameMode(GetWorld()));
-}
-
-void ACC_Pawn::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-	GameOverAnimation();
+	
+	GameMode->OnGameOverDelegate.AddDynamic(this, &ACC_Pawn::GameOverAnimation);
 }
 
 void ACC_Pawn::GameOverAnimation()
 {
-	if (GameMode->NumberOfLifes == 0)
-	{
-		SetActorHiddenInGame(true);
-		Mesh->SetSimulatePhysics(false);
-	}
+	GameOverParticleComponent->SetTemplate(GameOverParticleSystem);
+	Mesh->SetSimulatePhysics(false);
 }
 
 void ACC_Pawn::ChangeColor()
@@ -64,11 +58,19 @@ void ACC_Pawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 void ACC_Pawn::MoveUp(float Value)
 {
 	FVector ForceToAdd = FVector::ForwardVector * MovementForce * Value;
-	Mesh->AddForce(ForceToAdd);
+
+	if (GameMode->IsGamePlaying())
+	{
+		Mesh->AddForce(ForceToAdd);
+	}
 }
 
 void ACC_Pawn::MoveRight(float Value)
 {
 	FVector ForceToAdd = FVector(0, 1, 0) * MovementForce * Value;
-	Mesh->AddForce(ForceToAdd);
+	
+	if (GameMode->IsGamePlaying())
+	{
+		Mesh->AddForce(ForceToAdd);
+	}
 }

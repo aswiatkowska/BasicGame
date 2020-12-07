@@ -6,6 +6,8 @@
 #include "Components/StaticMeshComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
+#include "Particles/ParticleSystemComponent.h"
+#include "Particles/ParticleSystem.h"
 #include "CC_GameMode.h"
 #include "CC_Pawn.generated.h"
 
@@ -17,18 +19,19 @@ class GAME_001_API ACC_Pawn : public APawn
 public:
 	ACC_Pawn();
 
-	virtual void Tick(float DeltaTime) override;
-
 	void ChangeColor();
 
 	void ChangeColorBack();
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	UFUNCTION()
+	void GameOverAnimation();
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UMaterial * RedMaterial;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere)
 	UMaterial * DefaultMaterial;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
@@ -40,13 +43,17 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UCameraComponent* Camera;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UParticleSystemComponent * GameOverParticleComponent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UParticleSystem * GameOverParticleSystem;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float MovementForce = 100000;
 
 private:
 	virtual void BeginPlay() override;
-
-	void GameOverAnimation();
 
 	void MoveUp(float Value);
 

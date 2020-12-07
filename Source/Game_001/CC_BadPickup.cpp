@@ -7,23 +7,20 @@ void ACC_BadPickup::BeginPlay()
 	Super::BeginPlay();
 
 	Pawn = Cast<ACC_Pawn>(UGameplayStatics::GetActorOfClass(GetWorld(), ACC_Pawn::StaticClass()));
-}
 
-void ACC_BadPickup::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
-
-	if (GameMode->CheckWinConditions())
-	{
-		SetActorEnableCollision(false);
-	}
+	GameMode->OnWinDelegate.AddDynamic(this, &ACC_BadPickup::DisableCollision);
 }
 
 void ACC_BadPickup::DoOverlapActions()
 {
-	GameMode->SubtractLifes();
-
 	Pawn->ChangeColor();
 
+	GameMode->SubtractLifes();
+
 	Destroy();
+}
+
+void ACC_BadPickup::DisableCollision()
+{
+	SetActorEnableCollision(false);
 }

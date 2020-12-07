@@ -52,22 +52,12 @@ int ACC_GameMode::GetPoints()
 	return points;
 }
 
-bool ACC_GameMode::CheckWinConditions()
+void ACC_GameMode::YouWinMessage()
 {
 	if (NumberOfPickups == points)
 	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
+		OnWinDelegate.Broadcast();
 
-void ACC_GameMode::YouWinMessage()
-{
-	if (CheckWinConditions())
-	{
 		if (pWidget)
 		{
 			const FName locTextControlName = FName(TEXT("YouWinLabel"));
@@ -99,6 +89,8 @@ void ACC_GameMode::CheckRestartConditions()
 
 	if (NumberOfLifes == 0 || IsPawnOffBoard())
 	{
+		OnGameOverDelegate.Broadcast();
+
 		if (pWidget)
 		{
 			const FName locTextControlName = FName(TEXT("GameOverLabel"));
@@ -122,6 +114,18 @@ bool ACC_GameMode::IsPawnOffBoard()
 
 	return Z < 0.f;
 	
+}
+
+bool ACC_GameMode::IsGamePlaying()
+{
+	if(NumberOfPickups == points || NumberOfLifes == 0 || IsPawnOffBoard())
+	{
+		return false;
+	}
+	else
+	{
+		return true;
+	}
 }
 
 void ACC_GameMode::SubtractLifes()

@@ -5,6 +5,9 @@
 #include "GameFramework/GameModeBase.h"
 #include "CC_GameMode.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FWinDelegate);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FGameOverDelegate);
+
 UCLASS(minimalapi)
 class ACC_GameMode : public AGameModeBase
 {
@@ -21,12 +24,16 @@ public:
 
 	int GetPoints();
 
-	bool CheckWinConditions();
-
 	void SubtractLifes();
 
 	UFUNCTION()
 	void RestartGame();
+
+	bool IsGamePlaying();
+
+	FWinDelegate OnWinDelegate;
+
+	FGameOverDelegate OnGameOverDelegate;
 
 	UPROPERTY(EditAnywhere)
 	int NumberOfPickups = FMath::RandRange(4, 8);
