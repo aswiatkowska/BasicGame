@@ -19,20 +19,21 @@ class GAME_001_API ACC_Pawn : public APawn
 public:
 	ACC_Pawn();
 
-	void ChangeColor();
-
-	void ChangeColorBack();
-
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	void ChangeColor();
 
 	UFUNCTION()
 	void GameOverAnimation();
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UMaterial * RedMaterial;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UMaterialInstanceDynamic * DynamicMatInstance;
 
-	UPROPERTY(EditAnywhere)
-	UMaterial * DefaultMaterial;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	FLinearColor DefaultColor = FLinearColor(1, 1, 1, 1);
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	FLinearColor RedColor = FLinearColor(0.6, 0.05, 0.05, 1);
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UStaticMeshComponent* Mesh;
@@ -49,6 +50,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UParticleSystem * GameOverParticleSystem;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	FVector ForwardVector = FVector(1, 0, 0);
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	FVector RightVector = FVector(0, 1, 0);
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float MovementForce = 100000;
 
@@ -58,6 +65,8 @@ private:
 	void MoveUp(float Value);
 
 	void MoveRight(float Value);
+
+	void ChangeColorBack();
 
 	ACC_GameMode * GameMode;
 };

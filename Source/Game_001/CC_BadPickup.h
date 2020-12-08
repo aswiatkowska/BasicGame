@@ -4,7 +4,6 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "ParentPickup.h"
-#include "CC_Pawn.h"
 #include "CC_BadPickup.generated.h"
 
 UCLASS()
@@ -19,6 +18,4 @@ private:
 
 	UFUNCTION()
 	void DisableCollision();
-
-	ACC_Pawn * Pawn;
 };

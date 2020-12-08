@@ -1,5 +1,6 @@
 
 #include "CC_GameMode.h"
+#include "CC_Pawn.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/TextBlock.h"
 #include "Blueprint/WidgetTree.h"
@@ -130,6 +131,10 @@ bool ACC_GameMode::IsGamePlaying()
 
 void ACC_GameMode::SubtractLifes()
 {
+	ACC_Pawn * Pawn;
+	Pawn = Cast<ACC_Pawn>(UGameplayStatics::GetActorOfClass(GetWorld(), ACC_Pawn::StaticClass()));
+	Pawn->ChangeColor();
+
 	NumberOfLifes = NumberOfLifes - 1;
 }
 
