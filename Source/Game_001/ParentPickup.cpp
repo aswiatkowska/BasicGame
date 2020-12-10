@@ -12,7 +12,6 @@ AParentPickup::AParentPickup()
 	CubeMesh = CreateDefaultSubobject<UStaticMeshComponent>("CubeMesh");
 	CubeMesh->SetupAttachment(Root);
 	CubeMesh->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Overlap);
-	RotationRate = 100;
 
 	OnActorBeginOverlap.AddDynamic(this, &AParentPickup::OnOverlap);
 }

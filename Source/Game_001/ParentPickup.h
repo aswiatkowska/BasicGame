@@ -24,7 +24,7 @@ public:
 	UStaticMeshComponent* CubeMesh;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-	float RotationRate;
+	float RotationRate = 100;
 
 protected:
 	virtual void BeginPlay() override;

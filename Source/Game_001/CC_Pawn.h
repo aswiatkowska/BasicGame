@@ -44,9 +44,6 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UCameraComponent* Camera;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	UParticleSystemComponent * GameOverParticleComponent;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UParticleSystem * GameOverParticleSystem;
 

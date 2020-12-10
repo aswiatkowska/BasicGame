@@ -24,22 +24,31 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Zone)
 	TSubclassOf<AParentPickup> MyBadPickupClass;
 
-	UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = Range)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float SphereRadius = 20.f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Range)
 	float min1 = -450;
 
-	UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = Range)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Range)
 	float max1 = -50;
 
-	UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = Range)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Range)
 	float min2 = 50;
 
-	UPROPERTY(EditAnywhere, BluePrintReadWrite, Category = Range)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Range)
 	float max2 = 450;
 
 private:
 	virtual void BeginPlay() override;
 
 	void SpawnItem(UClass* ItemToSpawn);
+
+	UPROPERTY(VisibleAnywhere)
+	FVector Location;
+
+	UPROPERTY(VisibleAnywhere)
+	TArray<AActor*> OverlappedActors;
 
 	ACC_GameMode * GameMode;
 

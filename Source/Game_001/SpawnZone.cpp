@@ -1,5 +1,7 @@
 
 #include "SpawnZone.h"
+#include "CC_Pawn.h"
+#include "Kismet/KismetSystemLibrary.h"
 #include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
 
 ASpawnZone::ASpawnZone()
@@ -16,12 +18,18 @@ void ASpawnZone::BeginPlay()
 
 	for (int i = 0; i < GameMode->NumberOfPickups; i++)
 	{
-		SpawnItem(MyPickupClass);
+		if (UKismetSystemLibrary::SphereOverlapActors(GetWorld(), Location, SphereRadius, {}, TSubclassOf<AParentPickup>(), {}, OverlappedActors))
+		{
+			SpawnItem(MyPickupClass);
+		}
 	}
 
 	for (int i = 0; i < GameMode->NumberOfBadPickups; i++)
 	{
-		SpawnItem(MyBadPickupClass);
+		if (UKismetSystemLibrary::SphereOverlapActors(GetWorld(), Location, SphereRadius, {}, TSubclassOf<AParentPickup>(), {}, OverlappedActors))
+		{
+			SpawnItem(MyBadPickupClass);
+		}
 	}
 }
 
@@ -31,8 +39,6 @@ void ASpawnZone::SpawnItem(UClass* ItemToSpawn)
 	XCoordinate2 = FMath::FRandRange(min2, max2);
 	YCoordinate1 = FMath::FRandRange(min1, max1);
 	YCoordinate2 = FMath::FRandRange(min2, max2);
-
-	FVector Location;
 
 	randomLoc = FMath::RandRange(1, 4);
 	

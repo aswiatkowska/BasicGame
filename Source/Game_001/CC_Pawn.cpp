@@ -9,13 +9,10 @@ ACC_Pawn::ACC_Pawn()
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>("Mesh");
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>("SpringArm");
 	Camera = CreateDefaultSubobject<UCameraComponent>("Camera");
-	GameOverParticleComponent = CreateDefaultSubobject<UParticleSystemComponent>("GameOverParticle");
 
 	RootComponent = Mesh;
 	SpringArm->SetupAttachment(Mesh);
 	Camera->SetupAttachment(SpringArm);
-	GameOverParticleComponent->SetupAttachment(Mesh);
-	GameOverParticleComponent->SetTemplate(GameOverParticleSystem);
 
 	Mesh->SetSimulatePhysics(true);
 }
@@ -41,8 +38,11 @@ void ACC_Pawn::ChangeColor()
 {
 	DynamicMatInstance->SetVectorParameterValue(FName("ColorParam"), RedColor);
 
-	FTimerHandle handle;
-	GetWorld()->GetTimerManager().SetTimer(handle, this, &ACC_Pawn::ChangeColorBack, 0.5, true);
+	if (GameMode->NumberOfLifes > 1)
+	{
+		FTimerHandle handle;
+		GetWorld()->GetTimerManager().SetTimer(handle, this, &ACC_Pawn::ChangeColorBack, 0.5, false);
+	}
 }
 
 void ACC_Pawn::ChangeColorBack()
