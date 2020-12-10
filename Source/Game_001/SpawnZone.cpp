@@ -16,19 +16,18 @@ void ASpawnZone::BeginPlay()
 
 	GameMode = Cast<ACC_GameMode>(UGameplayStatics::GetGameMode(GetWorld()));
 
-	for (int i = 0; i < GameMode->NumberOfPickups; i++)
-	{
-		if (UKismetSystemLibrary::SphereOverlapActors(GetWorld(), Location, SphereRadius, {}, TSubclassOf<AParentPickup>(), {}, OverlappedActors))
-		{
-			SpawnItem(MyPickupClass);
-		}
-	}
-
 	for (int i = 0; i < GameMode->NumberOfBadPickups; i++)
 	{
-		if (UKismetSystemLibrary::SphereOverlapActors(GetWorld(), Location, SphereRadius, {}, TSubclassOf<AParentPickup>(), {}, OverlappedActors))
+		SpawnItem(MyBadPickupClass);
+	}
+
+	for (int i = 0; i < GameMode->NumberOfPickups; i++)
+	{
+		SpawnItem(MyPickupClass);
+
+		if (UKismetSystemLibrary::SphereOverlapActors(GetWorld(), Location, SphereRadius, {}, TSubclassOf<ACC_BadPickup>(), {}, OverlappedActors))
 		{
-			SpawnItem(MyBadPickupClass);
+			MyPickupClass->ConditionalBeginDestroy();
 		}
 	}
 }

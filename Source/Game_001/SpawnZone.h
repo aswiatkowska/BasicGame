@@ -3,7 +3,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "ParentPickup.h"
+#include "CC_Pickup.h"
+#include "CC_BadPickup.h"
 #include "CC_GameMode.h"
 #include "SpawnZone.generated.h"
 
@@ -19,10 +20,10 @@ public:
 	UStaticMeshComponent* Floor;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Zone)
-	TSubclassOf<AParentPickup> MyPickupClass;
+	TSubclassOf<ACC_Pickup> MyPickupClass;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Zone)
-	TSubclassOf<AParentPickup> MyBadPickupClass;
+	TSubclassOf<ACC_BadPickup> MyBadPickupClass;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float SphereRadius = 20.f;
