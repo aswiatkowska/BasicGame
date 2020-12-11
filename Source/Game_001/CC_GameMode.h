@@ -48,7 +48,11 @@ public:
 	TSubclassOf<UUserWidget> WidgetHUD;
 
 private:
+	void UpdatePoints();
+
 	void YouWinMessage();
+
+	void GameOverMessage();
 
 	void CheckRestartConditions();
 

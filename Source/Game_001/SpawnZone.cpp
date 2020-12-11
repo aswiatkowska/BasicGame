@@ -1,6 +1,5 @@
 
 #include "SpawnZone.h"
-#include "CC_Pawn.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "Runtime/Engine/Classes/Kismet/GameplayStatics.h"
 
@@ -15,31 +14,55 @@ void ASpawnZone::BeginPlay()
 	Super::BeginPlay();
 
 	GameMode = Cast<ACC_GameMode>(UGameplayStatics::GetGameMode(GetWorld()));
+	Pawn = Cast<ACC_Pawn>(UGameplayStatics::GetPlayerPawn(GetWorld(), 1));
+
+	for (int i = 0; i < GameMode->NumberOfPickups; i++)
+	{
+		SpawnItem(MyPickupClass);
+	}
 
 	for (int i = 0; i < GameMode->NumberOfBadPickups; i++)
 	{
 		SpawnItem(MyBadPickupClass);
 	}
-
-	for (int i = 0; i < GameMode->NumberOfPickups; i++)
-	{
-		SpawnItem(MyPickupClass);
-
-		if (UKismetSystemLibrary::SphereOverlapActors(GetWorld(), Location, SphereRadius, {}, TSubclassOf<ACC_BadPickup>(), {}, OverlappedActors))
-		{
-			MyPickupClass->ConditionalBeginDestroy();
-		}
-	}
 }
 
 void ASpawnZone::SpawnItem(UClass* ItemToSpawn)
 {
-	XCoordinate1 = FMath::FRandRange(min1, max1);
-	XCoordinate2 = FMath::FRandRange(min2, max2);
-	YCoordinate1 = FMath::FRandRange(min1, max1);
-	YCoordinate2 = FMath::FRandRange(min2, max2);
+	FVector NewPickupLocation = FVector::ZeroVector;
+	int LocSearchFails = 0;
 
-	randomLoc = FMath::RandRange(1, 4);
+	do
+	{
+		NewPickupLocation = GetSpawnLocation();
+		TArray<AActor*> OverlappedActors;
+		if (!UKismetSystemLibrary::SphereOverlapActors(GetWorld(), NewPickupLocation, SphereRadius, {}, TSubclassOf<AParentPickup>(), {this, Pawn}, OverlappedActors))
+		{
+			break;
+		}
+		++LocSearchFails;
+	}while (LocSearchFails < MAX_LOC_SEARCH_COUNT);
+
+	if (LocSearchFails < MAX_LOC_SEARCH_COUNT)
+	{
+		GetWorld()->SpawnActor<AActor>(ItemToSpawn, NewPickupLocation, FRotator::ZeroRotator);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("New pickup spawn failed."))
+	}
+}
+
+FVector ASpawnZone::GetSpawnLocation()
+{
+	float XCoordinate1 = FMath::FRandRange(min1, max1);
+	float XCoordinate2 = FMath::FRandRange(min2, max2);
+	float YCoordinate1 = FMath::FRandRange(min1, max1);
+	float YCoordinate2 = FMath::FRandRange(min2, max2);
+
+	int randomLoc = FMath::RandRange(1, 4);
+
+	FVector Location;
 	
 	if (randomLoc == 1)
 	{
@@ -58,5 +81,5 @@ void ASpawnZone::SpawnItem(UClass* ItemToSpawn)
 		Location = FVector(XCoordinate2, YCoordinate1, 40.f);
 	}
 
-	GetWorld()->SpawnActor<AActor>(ItemToSpawn, Location, FRotator::ZeroRotator);
+	return Location;
 }

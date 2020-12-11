@@ -27,15 +27,25 @@ void ACC_GameMode::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	CheckRestartConditions();
+	if (IsPawnOffBoard())
+	{
+		GameOverMessage();
+		FTimerHandle handle;
+		GetWorld()->GetTimerManager().SetTimer(handle, this, &ACC_GameMode::RestartGame, 2, true);
+	}
 }
 
 void ACC_GameMode::AddPoint()
 {
 	points++;
 
-	YouWinMessage();
+	UpdatePoints();
 
+	YouWinMessage();
+}
+
+void ACC_GameMode::UpdatePoints()
+{
 	if (pWidget)
 	{
 		const FName locTextControlName = FName(TEXT("ScoreLabel"));
@@ -88,11 +98,20 @@ void ACC_GameMode::CheckRestartConditions()
 		}
 	}
 
-	if (NumberOfLifes == 0 || IsPawnOffBoard())
+	if (NumberOfLifes == 0)
 	{
 		OnGameOverDelegate.Broadcast();
 
-		if (pWidget)
+		GameOverMessage();
+
+		FTimerHandle handle;
+		GetWorld()->GetTimerManager().SetTimer(handle, this, &ACC_GameMode::RestartGame, 2, true);
+	}
+}
+
+void ACC_GameMode::GameOverMessage()
+{
+	if (pWidget)
 		{
 			const FName locTextControlName = FName(TEXT("GameOverLabel"));
 			UTextBlock* locTextControl = (UTextBlock*)(pWidget->WidgetTree->FindWidget(locTextControlName));
@@ -102,10 +121,6 @@ void ACC_GameMode::CheckRestartConditions()
 					locTextControl->SetOpacity(1);
 				}
 		}
-
-		FTimerHandle handle;
-		GetWorld()->GetTimerManager().SetTimer(handle, this, &ACC_GameMode::RestartGame, 2, true);
-	}
 }
 
 bool ACC_GameMode::IsPawnOffBoard()
@@ -114,7 +129,6 @@ bool ACC_GameMode::IsPawnOffBoard()
 	Z = GetWorld()->GetFirstPlayerController()->GetPawn()->GetActorLocation().Z;
 
 	return Z < 0.f;
-	
 }
 
 bool ACC_GameMode::IsGamePlaying()
@@ -132,10 +146,12 @@ bool ACC_GameMode::IsGamePlaying()
 void ACC_GameMode::SubtractLifes()
 {
 	ACC_Pawn * Pawn;
-	Pawn = Cast<ACC_Pawn>(UGameplayStatics::GetActorOfClass(GetWorld(), ACC_Pawn::StaticClass()));
+	Pawn = Cast<ACC_Pawn>(UGameplayStatics::GetPlayerPawn(GetWorld(), 1));
 	Pawn->ChangeColor();
 
 	NumberOfLifes = NumberOfLifes - 1;
+
+	CheckRestartConditions();
 }
 
 void ACC_GameMode::RestartGame()

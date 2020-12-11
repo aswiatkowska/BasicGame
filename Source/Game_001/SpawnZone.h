@@ -3,9 +3,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "CC_Pickup.h"
-#include "CC_BadPickup.h"
+#include "ParentPickup.h"
 #include "CC_GameMode.h"
+#include "CC_Pawn.h"
 #include "SpawnZone.generated.h"
 
 UCLASS()
@@ -20,10 +20,10 @@ public:
 	UStaticMeshComponent* Floor;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Zone)
-	TSubclassOf<ACC_Pickup> MyPickupClass;
+	TSubclassOf<AParentPickup> MyPickupClass;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Zone)
-	TSubclassOf<ACC_BadPickup> MyBadPickupClass;
+	TSubclassOf<AParentPickup> MyBadPickupClass;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float SphereRadius = 20.f;
@@ -45,21 +45,11 @@ private:
 
 	void SpawnItem(UClass* ItemToSpawn);
 
-	UPROPERTY(VisibleAnywhere)
-	FVector Location;
+	FVector GetSpawnLocation();
 
-	UPROPERTY(VisibleAnywhere)
-	TArray<AActor*> OverlappedActors;
+	int MAX_LOC_SEARCH_COUNT = 2;
+
+	ACC_Pawn * Pawn;
 
 	ACC_GameMode * GameMode;
-
-	float XCoordinate1;
-
-	float XCoordinate2;
-
-	float YCoordinate1;
-
-	float YCoordinate2;
-
-	int randomLoc;
 };
