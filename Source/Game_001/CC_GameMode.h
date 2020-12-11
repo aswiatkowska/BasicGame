@@ -50,6 +50,8 @@ public:
 private:
 	void UpdatePoints();
 
+	void UpdateLifes();
+
 	void YouWinMessage();
 
 	void GameOverMessage();

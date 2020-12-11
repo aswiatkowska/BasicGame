@@ -86,18 +86,7 @@ void ACC_GameMode::YouWinMessage()
 }
 
 void ACC_GameMode::CheckRestartConditions()
-{	
-	if (pWidget)
-	{
-		const FName locTextControlName = FName(TEXT("LifesLabel"));
-			UTextBlock* locTextControl = (UTextBlock*)(pWidget->WidgetTree->FindWidget(locTextControlName));
-
-		if (locTextControl != nullptr)
-		{
-			locTextControl->SetText(FText::FromString(FString::FromInt(this->NumberOfLifes)));
-		}
-	}
-
+{
 	if (NumberOfLifes == 0)
 	{
 		OnGameOverDelegate.Broadcast();
@@ -146,12 +135,27 @@ bool ACC_GameMode::IsGamePlaying()
 void ACC_GameMode::SubtractLifes()
 {
 	ACC_Pawn * Pawn;
-	Pawn = Cast<ACC_Pawn>(UGameplayStatics::GetPlayerPawn(GetWorld(), 1));
+	Pawn = Cast<ACC_Pawn>(UGameplayStatics::GetActorOfClass(GetWorld(), ACC_Pawn::StaticClass()));
 	Pawn->ChangeColor();
 
 	NumberOfLifes = NumberOfLifes - 1;
+	UpdateLifes();
 
 	CheckRestartConditions();
+}
+
+void ACC_GameMode::UpdateLifes()
+{
+	if (pWidget)
+	{
+		const FName locTextControlName = FName(TEXT("LifesLabel"));
+			UTextBlock* locTextControl = (UTextBlock*)(pWidget->WidgetTree->FindWidget(locTextControlName));
+
+		if (locTextControl != nullptr)
+		{
+			locTextControl->SetText(FText::FromString(FString::FromInt(this->NumberOfLifes)));
+		}
+	}
 }
 
 void ACC_GameMode::RestartGame()
