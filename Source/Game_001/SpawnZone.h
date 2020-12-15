@@ -47,7 +47,7 @@ private:
 
 	FVector GetSpawnLocation();
 
-	int MAX_LOC_SEARCH_COUNT = 2;
+	int MAX_LOC_SEARCH_COUNT = 10;
 
 	ACC_Pawn * Pawn;
 

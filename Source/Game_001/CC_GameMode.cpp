@@ -28,10 +28,14 @@ void ACC_GameMode::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	if (IsPawnOffBoard())
-	{
-		GameOverMessage();
-		FTimerHandle handle;
-		GetWorld()->GetTimerManager().SetTimer(handle, this, &ACC_GameMode::RestartGame, 2, true);
+	{	
+		if (!initialized)
+		{
+			initialized = true;
+			GameOverMessage();
+			FTimerHandle handle;
+			GetWorld()->GetTimerManager().SetTimer(handle, this, &ACC_GameMode::RestartGame, 2, true);
+		}
 	}
 }
 
@@ -67,6 +71,7 @@ void ACC_GameMode::YouWinMessage()
 {
 	if (NumberOfPickups == points)
 	{
+		initialized = true;
 		OnWinDelegate.Broadcast();
 
 		if (pWidget)
@@ -149,7 +154,7 @@ void ACC_GameMode::UpdateLifes()
 	if (pWidget)
 	{
 		const FName locTextControlName = FName(TEXT("LifesLabel"));
-			UTextBlock* locTextControl = (UTextBlock*)(pWidget->WidgetTree->FindWidget(locTextControlName));
+		UTextBlock* locTextControl = (UTextBlock*)(pWidget->WidgetTree->FindWidget(locTextControlName));
 
 		if (locTextControl != nullptr)
 		{

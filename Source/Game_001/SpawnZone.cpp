@@ -14,7 +14,7 @@ void ASpawnZone::BeginPlay()
 	Super::BeginPlay();
 
 	GameMode = Cast<ACC_GameMode>(UGameplayStatics::GetGameMode(GetWorld()));
-	Pawn = Cast<ACC_Pawn>(UGameplayStatics::GetPlayerPawn(GetWorld(), 1));
+	Pawn = Cast<ACC_Pawn>(UGameplayStatics::GetPlayerPawn(GetWorld(), 0));
 
 	for (int i = 0; i < GameMode->NumberOfPickups; i++)
 	{

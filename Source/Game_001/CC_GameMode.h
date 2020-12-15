@@ -62,5 +62,7 @@ private:
 
 	int points = 0;
 
+	bool initialized = false;
+
 	UUserWidget* pWidget = nullptr;
 };
