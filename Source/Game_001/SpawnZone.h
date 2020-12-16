@@ -26,7 +26,7 @@ public:
 	TSubclassOf<AParentPickup> MyBadPickupClass;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float SphereRadius = 20.f;
+	float SphereRadius = 30.f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Range)
 	float min1 = -450;

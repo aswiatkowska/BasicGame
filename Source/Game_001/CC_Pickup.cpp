@@ -19,7 +19,7 @@ void ACC_Pickup::DoOverlapActions()
 	PointAudioComponent->Play(0.f);
 
 	FTimerHandle handle;
-	GetWorld()->GetTimerManager().SetTimer(handle, this, &ACC_Pickup::DestroyPickup, 1, true);
+	GetWorld()->GetTimerManager().SetTimer(handle, this, &ACC_Pickup::DestroyPickup, 1);
 }
 
 void ACC_Pickup::DestroyPickup()

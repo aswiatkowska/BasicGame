@@ -41,7 +41,7 @@ void ACC_Pawn::ChangeColor()
 	if (GameMode->NumberOfLifes > 1)
 	{
 		FTimerHandle handle;
-		GetWorld()->GetTimerManager().SetTimer(handle, this, &ACC_Pawn::ChangeColorBack, 0.5, false);
+		GetWorld()->GetTimerManager().SetTimer(handle, this, &ACC_Pawn::ChangeColorBack, 0.5);
 	}
 }
 

@@ -1,6 +1,7 @@
 
 #pragma once
 
+#include "CC_UserWidget.h"
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
 #include "CC_GameMode.generated.h"
@@ -44,17 +45,14 @@ public:
 	UPROPERTY(EditAnywhere)
 	int NumberOfLifes = 3;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Widget")
+	UPROPERTY()
+	UCC_UserWidget * pWidget;
+
+	UPROPERTY()
 	TSubclassOf<UUserWidget> WidgetHUD;
 
 private:
-	void UpdatePoints();
-
-	void UpdateLifes();
-
-	void YouWinMessage();
-
-	void GameOverMessage();
+	void YouWin();
 
 	void CheckRestartConditions();
 
@@ -63,6 +61,4 @@ private:
 	int points = 0;
 
 	bool initialized = false;
-
-	UUserWidget* pWidget = nullptr;
 };

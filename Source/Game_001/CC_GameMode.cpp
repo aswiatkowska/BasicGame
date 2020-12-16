@@ -2,8 +2,6 @@
 #include "CC_GameMode.h"
 #include "CC_Pawn.h"
 #include "Blueprint/UserWidget.h"
-#include "Components/TextBlock.h"
-#include "Blueprint/WidgetTree.h"
 #include "Kismet/GameplayStatics.h"
 #include "TimerManager.h"
 #include "Engine/World.h"
@@ -19,7 +17,8 @@ void ACC_GameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
-	pWidget = CreateWidget<UUserWidget>(GetGameInstance(), WidgetHUD);
+	pWidget = CreateWidget<UCC_UserWidget>(GetGameInstance(), WidgetHUD);
+
 	pWidget->AddToViewport();
 }
 
@@ -32,9 +31,9 @@ void ACC_GameMode::Tick(float DeltaTime)
 		if (!initialized)
 		{
 			initialized = true;
-			GameOverMessage();
+			pWidget->DisplayGameOverMessage();
 			FTimerHandle handle;
-			GetWorld()->GetTimerManager().SetTimer(handle, this, &ACC_GameMode::RestartGame, 2, true);
+			GetWorld()->GetTimerManager().SetTimer(handle, this, &ACC_GameMode::RestartGame, 2);
 		}
 	}
 }
@@ -43,23 +42,9 @@ void ACC_GameMode::AddPoint()
 {
 	points++;
 
-	UpdatePoints();
+	pWidget->UpdatePoints();
 
-	YouWinMessage();
-}
-
-void ACC_GameMode::UpdatePoints()
-{
-	if (pWidget)
-	{
-		const FName locTextControlName = FName(TEXT("ScoreLabel"));
-		UTextBlock* locTextControl = (UTextBlock*)(pWidget->WidgetTree->FindWidget(locTextControlName));
-
-		if (locTextControl != nullptr)
-		{
-			locTextControl->SetText(FText::FromString(FString::FromInt(this->points)));
-		}
-	}
+	YouWin();
 }
 
 int ACC_GameMode::GetPoints()
@@ -67,26 +52,17 @@ int ACC_GameMode::GetPoints()
 	return points;
 }
 
-void ACC_GameMode::YouWinMessage()
+void ACC_GameMode::YouWin()
 {
 	if (NumberOfPickups == points)
 	{
 		initialized = true;
 		OnWinDelegate.Broadcast();
 
-		if (pWidget)
-		{
-			const FName locTextControlName = FName(TEXT("YouWinLabel"));
-			UTextBlock* locTextControl = (UTextBlock*)(pWidget->WidgetTree->FindWidget(locTextControlName));
-
-			if (locTextControl != nullptr)
-			{
-				locTextControl->SetOpacity(1);
-			}
-		}
+		pWidget->DisplayYouWinMessage();
 
 		FTimerHandle handle;
-		GetWorld()->GetTimerManager().SetTimer(handle, this, &ACC_GameMode::RestartGame, 2, true);
+		GetWorld()->GetTimerManager().SetTimer(handle, this, &ACC_GameMode::RestartGame, 2);
 	}
 }
 
@@ -96,25 +72,11 @@ void ACC_GameMode::CheckRestartConditions()
 	{
 		OnGameOverDelegate.Broadcast();
 
-		GameOverMessage();
+		pWidget->DisplayGameOverMessage();
 
 		FTimerHandle handle;
-		GetWorld()->GetTimerManager().SetTimer(handle, this, &ACC_GameMode::RestartGame, 2, true);
+		GetWorld()->GetTimerManager().SetTimer(handle, this, &ACC_GameMode::RestartGame, 2);
 	}
-}
-
-void ACC_GameMode::GameOverMessage()
-{
-	if (pWidget)
-		{
-			const FName locTextControlName = FName(TEXT("GameOverLabel"));
-			UTextBlock* locTextControl = (UTextBlock*)(pWidget->WidgetTree->FindWidget(locTextControlName));
-
-				if (locTextControl != nullptr)
-				{
-					locTextControl->SetOpacity(1);
-				}
-		}
 }
 
 bool ACC_GameMode::IsPawnOffBoard()
@@ -144,23 +106,9 @@ void ACC_GameMode::SubtractLifes()
 	Pawn->ChangeColor();
 
 	NumberOfLifes = NumberOfLifes - 1;
-	UpdateLifes();
+	pWidget->UpdateLifes();
 
 	CheckRestartConditions();
-}
-
-void ACC_GameMode::UpdateLifes()
-{
-	if (pWidget)
-	{
-		const FName locTextControlName = FName(TEXT("LifesLabel"));
-		UTextBlock* locTextControl = (UTextBlock*)(pWidget->WidgetTree->FindWidget(locTextControlName));
-
-		if (locTextControl != nullptr)
-		{
-			locTextControl->SetText(FText::FromString(FString::FromInt(this->NumberOfLifes)));
-		}
-	}
 }
 
 void ACC_GameMode::RestartGame()
