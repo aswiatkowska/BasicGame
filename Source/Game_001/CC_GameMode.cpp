@@ -42,7 +42,7 @@ void ACC_GameMode::AddPoint()
 {
 	points++;
 
-	pWidget->UpdatePoints();
+	pWidget->UpdatePoints(points);
 
 	YouWin();
 }
@@ -106,7 +106,7 @@ void ACC_GameMode::SubtractLifes()
 	Pawn->ChangeColor();
 
 	NumberOfLifes = NumberOfLifes - 1;
-	pWidget->UpdateLifes();
+	pWidget->UpdateLifes(NumberOfLifes);
 
 	CheckRestartConditions();
 }
@@ -114,4 +114,14 @@ void ACC_GameMode::SubtractLifes()
 void ACC_GameMode::RestartGame()
 {
 	UGameplayStatics::OpenLevel(this, "DefaultMap", false);
+}
+
+void ACC_GameMode::Pause()
+{
+	
+}
+
+void ACC_GameMode::Unpause()
+{
+	
 }

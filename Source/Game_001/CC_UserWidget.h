@@ -20,8 +20,8 @@ public:
 	void DisplayGameOverMessage();
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "TextUpdate")
-	void UpdatePoints();
+	void UpdatePoints(int score);
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "TextUpdate")
-	void UpdateLifes();	
+	void UpdateLifes(int lifes);	
 };

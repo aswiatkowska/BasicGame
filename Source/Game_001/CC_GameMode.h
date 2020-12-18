@@ -32,6 +32,12 @@ public:
 
 	bool IsGamePlaying();
 
+	UFUNCTION(BlueprintCallable, Category = "Menu")
+	void Pause();
+
+	UFUNCTION(BlueprintCallable, Category = "Menu")
+	void Unpause();
+
 	FWinDelegate OnWinDelegate;
 
 	FGameOverDelegate OnGameOverDelegate;
