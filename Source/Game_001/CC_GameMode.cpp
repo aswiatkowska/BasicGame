@@ -118,10 +118,10 @@ void ACC_GameMode::RestartGame()
 
 void ACC_GameMode::Pause()
 {
-	
+	UGameplayStatics::SetGamePaused(GetWorld(), true);
 }
 
 void ACC_GameMode::Unpause()
 {
-	
+	UGameplayStatics::SetGamePaused(GetWorld(), false);
 }

@@ -23,5 +23,5 @@ public:
 	void UpdatePoints(int score);
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "TextUpdate")
-	void UpdateLifes(int lifes);	
+	void UpdateLifes(int lifes);
 };
