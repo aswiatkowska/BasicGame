@@ -127,4 +127,5 @@ void ACC_GameMode::Pause()
 void ACC_GameMode::Unpause()
 {
 	UGameplayStatics::SetGamePaused(GetWorld(), false);
+	pWidget2->RemoveFromViewport();
 }
