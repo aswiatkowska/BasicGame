@@ -2,6 +2,7 @@
 #pragma once
 
 #include "CC_UserWidget.h"
+#include "CC_MenuWidget.h"
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
 #include "CC_GameMode.generated.h"
@@ -53,6 +54,9 @@ public:
 
 	UPROPERTY()
 	UCC_UserWidget * pWidget;
+
+	UPROPERTY()
+	UCC_MenuWidget * pWidget2;
 
 	UPROPERTY()
 	TSubclassOf<UUserWidget> WidgetHUD;
