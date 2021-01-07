@@ -33,6 +33,8 @@ public:
 
 	bool IsGamePlaying();
 
+	bool IsPaused = false;
+
 	UFUNCTION(BlueprintCallable, Category = "Menu")
 	void Pause();
 

@@ -91,7 +91,7 @@ bool ACC_GameMode::IsPawnOffBoard()
 
 bool ACC_GameMode::IsGamePlaying()
 {
-	if(NumberOfPickups == points || NumberOfLifes == 0 || IsPawnOffBoard())
+	if(NumberOfPickups == points || NumberOfLifes == 0 || IsPawnOffBoard() || IsPaused)
 	{
 		return false;
 	}
@@ -120,16 +120,14 @@ void ACC_GameMode::RestartGame()
 
 void ACC_GameMode::Pause()
 {
-	UGameplayStatics::SetGamePaused(GetWorld(), true);
-	FInputActionBinding& toggle = InputComponent->BindAction("Pause", IE_Pressed, this, &ACC_GameMode::Pause);
-	toggle.bExecuteWhenPaused = true;
+	IsPaused = true;
 	menuWidget->AddToViewport();
 	GetWorld()->GetFirstPlayerController()->bShowMouseCursor = true;
 }
 
 void ACC_GameMode::Unpause()
 {
-	UGameplayStatics::SetGamePaused(GetWorld(), false);
+	IsPaused = false;
 	menuWidget->RemoveFromViewport();
 	GetWorld()->GetFirstPlayerController()->bShowMouseCursor = false;
 }
