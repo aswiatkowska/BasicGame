@@ -122,7 +122,7 @@ void ACC_GameMode::Pause()
 {
 	UGameplayStatics::SetGamePaused(GetWorld(), true);
 	FInputActionBinding& toggle = InputComponent->BindAction("Pause", IE_Pressed, this, &ACC_GameMode::Pause);
-	toggle.bExecuteWhenPaused = true; 
+	toggle.bExecuteWhenPaused = true;
 	menuWidget->AddToViewport();
 	GetWorld()->GetFirstPlayerController()->bShowMouseCursor = true;
 }
