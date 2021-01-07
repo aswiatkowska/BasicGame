@@ -56,7 +56,7 @@ public:
 	UCC_UserWidget * pWidget;
 
 	UPROPERTY()
-	UCC_MenuWidget * pWidget2;
+	UCC_MenuWidget * menuWidget;
 
 	UPROPERTY()
 	TSubclassOf<UUserWidget> WidgetHUD;

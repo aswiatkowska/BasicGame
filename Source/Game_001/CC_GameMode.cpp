@@ -21,7 +21,7 @@ void ACC_GameMode::BeginPlay()
 
 	pWidget->AddToViewport();
 
-	pWidget2 = CreateWidget<UCC_MenuWidget>(GetGameInstance(), WidgetHUD);
+	menuWidget = CreateWidget<UCC_MenuWidget>(GetGameInstance(), WidgetHUD);
 }
 
 void ACC_GameMode::Tick(float DeltaTime)
@@ -121,11 +121,11 @@ void ACC_GameMode::RestartGame()
 void ACC_GameMode::Pause()
 {
 	UGameplayStatics::SetGamePaused(GetWorld(), true);
-	pWidget2->AddToViewport();
+	menuWidget->AddToViewport();
 }
 
 void ACC_GameMode::Unpause()
 {
 	UGameplayStatics::SetGamePaused(GetWorld(), false);
-	pWidget2->RemoveFromViewport();
+	menuWidget->RemoveFromViewport();
 }
