@@ -122,10 +122,12 @@ void ACC_GameMode::Pause()
 {
 	UGameplayStatics::SetGamePaused(GetWorld(), true);
 	menuWidget->AddToViewport();
+	GetWorld()->GetFirstPlayerController()->bShowMouseCursor = true;
 }
 
 void ACC_GameMode::Unpause()
 {
 	UGameplayStatics::SetGamePaused(GetWorld(), false);
 	menuWidget->RemoveFromViewport();
+	GetWorld()->GetFirstPlayerController()->bShowMouseCursor = false;
 }
