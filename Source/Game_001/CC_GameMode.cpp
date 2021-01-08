@@ -21,7 +21,7 @@ void ACC_GameMode::BeginPlay()
 
 	pWidget->AddToViewport();
 
-	menuWidget = CreateWidget<UCC_MenuWidget>(GetGameInstance(), WidgetHUD);
+	menuWidget = CreateWidget<UCC_MenuWidget>(GetGameInstance(), WidgetMenu);
 }
 
 void ACC_GameMode::Tick(float DeltaTime)

@@ -60,6 +60,9 @@ public:
 	UPROPERTY()
 	UCC_MenuWidget * menuWidget;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<UUserWidget> WidgetMenu;
+
 	UPROPERTY()
 	TSubclassOf<UUserWidget> WidgetHUD;
 
